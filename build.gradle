@@ -24,6 +24,8 @@ dependencies {
     compile("com.github.javafaker:javafaker:1.0.2")
     compile("io.qameta.allure:allure-java-commons:2.13.8")
     compile("io.qameta.allure:allure-selenide:2.13.8")
+    compile 'org.slf4j:slf4j-nop:1.7.25'
+
 
 
 }
@@ -38,8 +40,37 @@ allure {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+
 }
 
 test {
     useJUnitPlatform()
+    testLogging {
+        lifecycle {
+            exceptionFormat "short"
+            events "started", "skipped", "failed", "standard_out"
+        }
+    }
+}
+task Oko_test(type: Test) {
+    useJUnitPlatform {
+        includeTags 'Oko'
+    }
+    testLogging {
+        lifecycle {
+            exceptionFormat "short"
+            events "started", "skipped", "failed", "standard_out"
+        }
+    }
+}
+task Privat_test(type: Test) {
+    useJUnitPlatform {
+        includeTags 'Privat'
+    }
+    testLogging {
+        lifecycle {
+            exceptionFormat "short"
+            events "started", "skipped", "failed", "standard_out"
+        }
+    }
 }

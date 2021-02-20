@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
@@ -45,7 +47,7 @@ public class SchoolPage extends BaseOko {
         step("Выборка региона", RegionPage::selectRegion);
         step("Выборка раздела школы", () -> $(byLinkText(school)).click());
         step("Открытие округа для отображения школы", () -> $("span.title").click());
-        step("Проверка отображения школ в округе", () -> $(".group-list").shouldBe(visible));
+        step("Проверка отображения школ в округе", () -> $(".group-list").shouldBe(visible, Duration.ofSeconds(30)));
         step("Нахождение списка школ и выбор первой школы из списка", () -> $$(".school").first().click());
 
         step("Переключение на окно школы и проверка загрузки данных по школе", () -> {
