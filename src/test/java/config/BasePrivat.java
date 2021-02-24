@@ -13,21 +13,24 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
-public class BasePrivat {
+public abstract class BasePrivat {
+
     public Faker faker = new Faker();
     String name = "input[type='email']";
     String password = "input[type='password']";
     String submitBotton = "button[type='submit']";
-    String remember = "#remember";
     String url = "http://oko-private-stage.cism-ms.ru/";
     String profileList = ".profiles-list";
+
 
     @BeforeAll
 
     public static void setUp() {
+
         setSelenideConfiguration();
         SelenideLogger.addListener("allure", new AllureSelenide());
 
@@ -42,7 +45,6 @@ public class BasePrivat {
             $(submitBotton).shouldHave(disabled).click();
             $(name).val("tester@cism-ms.ru");
             $(password).val("id7@cS2jA");
-            $(remember).click();
             $(submitBotton).shouldNotHave(disabled).click();
         });
         step("Проверка загрузки главной страницы", () -> {
@@ -71,4 +73,5 @@ public class BasePrivat {
         Configuration.startMaximized = true;
 
     }
+
 }

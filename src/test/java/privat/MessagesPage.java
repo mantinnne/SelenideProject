@@ -1,5 +1,6 @@
 package privat;
 
+import Methud.Privat;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
@@ -15,14 +16,19 @@ import org.openqa.selenium.By;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static io.qameta.allure.Allure.step;
 
 public class MessagesPage extends BasePrivat {
-    ElementsCollection messageListDirection = $$("#vs6__listbox > li");
+    Privat privat = new Privat();
 
     SelenideElement message = $(".posts-table"),
-            messageInputDirection = $(".vs__selected-options");
+            inputKeyWord = $("#keywords"),
+            waitBounce = $(".double-bounce2"),
+            messeageProfileFilterID = $("#profile-id"),
+            messeageGroupFilterID = $("#profile-id");
 
 
     @Test
@@ -33,7 +39,7 @@ public class MessagesPage extends BasePrivat {
     void selectMessages() {
         step("Открытие раздела Messeages", () -> $(By.linkText("Сообщения")).click());
         step("Проверка отображения загрузки списка сообщений", () -> {
-            $(message).shouldBe(visible);
+            message.shouldBe(visible);
         });
     }
 
@@ -41,26 +47,37 @@ public class MessagesPage extends BasePrivat {
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
-    @DisplayName("Открытие раздела messages")
+    @DisplayName("Проверка поиска сообщений по теме  у профилей")
+    void selectMessagesForTheme() {
+        privat.selectForMesseage(5, 6, 0);
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка поиска сообщений по направлений у профилям")
     void selectMessagesForDirection() {
+        privat.selectForMesseage(62, 63, 1);
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка поиска сообщений по ключевым словам")
+    void selectMessagesKeyWord() {
         step("Открытие раздела Messeages", this::selectMessages);
-        step("Открытие выбора направления для фильтрации", () -> {
-            messageInputDirection.click();
+        step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
+        step("Ввод в поле поиска клчевого слова", () -> {
+            inputKeyWord.val("Матрос");
+            waitBounce.shouldBe(visible).shouldHave(disappear);
         });
-        step("Открытие выбора направления для фильтрации", () -> {
-            messageListDirection.shouldHaveSize(5);
-        });
-        step("Выбор первого направления и проверка доступности сброса фильтров", () -> {
-            messageListDirection.get(0).click();
-            $(".double-bounce2").shouldBe(disappear);
-            messageInputDirection.click();
-            messageListDirection.shouldHaveSize(6);
-        });
-        step("Проверка доступности для выбора всех направлений", () -> {
-            for (int i = 1; i < 6; i++) {
-                messageListDirection.get(i).click();
-                $(".double-bounce2").shouldBe(hidden, Duration.ofSeconds(15));
-                messageInputDirection.click();
+        step("Проверка отображения выделенного  ключевого слова на странице и цвет выделения", () -> {
+            ElementsCollection detected = $$("detected");
+            for (SelenideElement element : detected) {
+                element.shouldBe(visible);
+                element.shouldHave(cssValue("background-color", "rgba(255, 255, 0, 1)"));
             }
         });
     }
@@ -69,13 +86,66 @@ public class MessagesPage extends BasePrivat {
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
-    @DisplayName("Открытие раздела messages")
+    @DisplayName("Проверка поиска сообщений по источнику")
+    void selectMessageSourceFilter() {
+        privat.selectMessage("source", 8);
+
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка поиска сообщений по социальной сети")
+    void selectMessageNetworkCosial() {
+        privat.selectMessage("group-snt", 9);
+
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка поиска сообщений по id пользователя")
+    void selectMessagesIdFilterProfile() {
+        step("Открытие раздела Messeages", this::selectMessages);
+        step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
+        step("Ввод id пользователя, для проверки фильтрации по id пользователя", () -> messeageProfileFilterID.val("12345"));
+        step("Проверка отображения сообщения от пользователя с указанным id", () -> {
+            waitBounce.shouldHave(disappear, Duration.ofSeconds(20));
+            $(byText("Страховецкая Ева")).shouldBe(visible);
+        });
+    }
+
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка поиска сообщений по id группы")
+    void selectMessagesIdFilterGroup() {
+        step("Открытие раздела Messeages", this::selectMessages);
+        step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
+        step("Ввод id группы, для проверки фильтрации по id группы", () -> messeageGroupFilterID.val("12345"));
+        step("Проверка отображения сообщения от пользователя с указанным id", () -> {
+            waitBounce.shouldHave(disappear, Duration.ofSeconds(20));
+        });
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Проверка фильтрации сообщений по выбранной дате")
     void messeageDataFilter() {
         step("Открытие раздела Messeages", this::selectMessages);
         step("Установки фильтра даты по отправке сообщений", () -> {
-            $("#publication-date-from").val("12121994");
+
+//            $("#publication-date-from");
+//            sleep(2000);
         });
 
     }
+
 }
 
