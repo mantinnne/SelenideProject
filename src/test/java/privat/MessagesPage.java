@@ -136,6 +136,19 @@ public class MessagesPage extends BasePrivat {
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка сообщений по социальной сети ")
+    void sortMessagesSocialNetwork() {
+        step("Открытие раздела Messeages", this::selectMessages);
+        step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
+        step("Выборка сортировки по социальной сети", () -> {
+
+        });
+    }
+
+    @Test
+    @Story("Messages")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка фильтрации сообщений по выбранной дате")
     void messeageDataFilter() {
         step("Открытие раздела Messeages", this::selectMessages);

@@ -5,10 +5,12 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
@@ -27,16 +29,27 @@ public class BaseOko {
     String submitBotton = "button[type='submit']";
     String url = "http://oko-stage.cism-ms.ru/";
 
+    @BeforeEach
+    @Order(1)
+    void setup() {
+        Configuration.remote = "http://selenoid:4444/wd/hub";
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "89.0");
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
 
-    @BeforeAll
-
-    public static void setUp() {
         setSelenideConfiguration();
         SelenideLogger.addListener("allure", new AllureSelenide());
-
     }
 
+
     @BeforeEach
+    @Order(2)
     void login() {
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
