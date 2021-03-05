@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
-import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -26,16 +26,15 @@ public abstract class BasePrivat {
     String password = "input[type='password']";
     String submitBotton = "button[type='submit']";
     String url = "http://oko-private-stage.cism-ms.ru/";
-    String profileList = ".profiles-list";
 
 
     @BeforeAll
     public static void setup() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("browserVersion", "89.0");
+        capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
+//        capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         Configuration.remote = "http://10.191.1.51:4444/wd/hub/";
     }
@@ -44,20 +43,15 @@ public abstract class BasePrivat {
     @BeforeEach
     void login() {
         setSelenideConfiguration();
-
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сесии", () -> {
             $(submitBotton).shouldHave(disabled).click();
             $(name).val("tester@cism-ms.ru");
             $(password).val("id7@cS2jA");
             $(submitBotton).shouldNotHave(disabled).click();
-        });
-        step("Проверка загрузки главной страницы", () -> {
             $("title").shouldHave(attribute("text", "oko"));
-            $(profileList).shouldBe(visible, Duration.ofSeconds(15));
+
         });
-
-
     }
 
     @AfterEach
@@ -75,7 +69,7 @@ public abstract class BasePrivat {
 
     private static void setSelenideConfiguration() {
         addListener("allure", new AllureSelenide());
-        Configuration.timeout = 15000;
+        Configuration.timeout = 25000;
         Configuration.startMaximized = true;
 
     }

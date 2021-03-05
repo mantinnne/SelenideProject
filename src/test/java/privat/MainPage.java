@@ -64,6 +64,13 @@ public class MainPage extends BasePrivat {
             textArea = $(textAreas),
             buttonSave = $(withText("Сохранить"));
 
+    @Test
+    void startloadingMainPage() {
+        step("Проверка загрузки главной страницы", () -> {
+            $("title").shouldHave(attribute("text", "oko"));
+            $(profileList).shouldBe(visible, Duration.ofSeconds(15));
+        });
+    }
 
     @Test
     @Story("Privat")

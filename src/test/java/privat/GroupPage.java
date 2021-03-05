@@ -19,7 +19,6 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class GroupPage extends BasePrivat {
-
     final static String group = "div.table";
     String groupList = "//tbody/tr",
             dropdownSelected = "vs__dropdown-option--selected";
@@ -34,6 +33,7 @@ public class GroupPage extends BasePrivat {
             buttonFilter = $(".app-button");
     final ElementsCollection conutGroupFilterList = $$("li.vs__dropdown-option"),
             conutDirectionFilterList = $$("li.vs__dropdown-option");
+
 
 
     @Test
@@ -228,7 +228,7 @@ public class GroupPage extends BasePrivat {
         });
         step("Перебор фильтрации по направлениям и проверки загрузки групп", () -> {
             for (int i = 1; i < conutDirectionFilterList.size(); i++) {
-                conutDirectionFilterList.get(i).click();
+                conutDirectionFilterList.get(i).shouldNotHave(disabled).click();
                 groupDirectionFilter.click();
                 $(conutDirectionFilterList.get(i)).shouldHave(cssClass(dropdownSelected));
                 bounceWait.shouldBe(disappear);

@@ -33,7 +33,7 @@ public class SchoolboyPage extends BaseOko {
         step("Просмотр школьников и выбор первого школьника", () -> schoolLis.first().click());
         step("Переход в досье школьника", () -> {
             $(byText("Досье")).click();
-            switchTo().window(3);
+            switchTo().window(2);
         });
         step("Проверка загрузки  данных по школьника", () -> {
             $(".dossier__general-data").shouldBe(visible);
@@ -101,7 +101,7 @@ public class SchoolboyPage extends BaseOko {
         step("Просмотр школьников и выбор первого школьника", () -> schoolLis.first().click());
         step("Переход в  профиль школьника", () -> $(byText("Профиль ЦИСМ")).click());
         step("Проверка загрузки профиля школы", () -> {
-            switchTo().window(3);
+            switchTo().window(2);
             $(".profile-main-data").shouldBe(visible);
         });
     }

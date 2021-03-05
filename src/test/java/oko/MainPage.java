@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.cssClass;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
@@ -22,9 +22,23 @@ public class MainPage extends BaseOko {
             directionItem = ".direction-item",
             zoomIn = "button[title='Zoom in']",
             zoomOut = "button[title='Zoom out']";
-    SelenideElement region = $("button[class='region-picker-button app-button filled size-md']"),
-            cityForRegion = $(".cities-toggle");
 
+    String mapTopPanel = ".map-bottom-bar-top-panel";
+    String segmentBlock = "section[class='content-block segments-block']";
+    String directionBlock = "section[class='content-block directions-stat-block']";
+    String streamBlock = "section[class='content-block stream-block']";
+
+    @Test
+    void waitLoadingMainPage() {
+        step("Проверка загрузки страницы", () -> {
+            $("title").shouldHave(attribute("text", "ЦИСМ"));
+            $(mapTopPanel).shouldBe(visible);
+            $(segmentBlock).shouldBe(visible);
+            $(directionBlock).shouldBe(visible);
+            $(streamBlock).shouldBe(visible, Duration.ofSeconds(15));
+        });
+
+    }
 
     @Test
     @Story("Oko")
@@ -48,30 +62,6 @@ public class MainPage extends BaseOko {
         });
     }
 
-    @Test
-    @Story("Oko")
-    @Severity(SeverityLevel.NORMAL)
-    @Tags({@Tag("web"), @Tag("Oko"), @Tag("High")})
-    @DisplayName("Выборка регионов для оторажения региона")
-    void selectRegionView() {
-
-        step("Проверка отображения текста у кнопки выборки регионов", () -> {
-            region.shouldHave(text("Вся Россия"));
-        });
-        step("Нажатие на кнопку выбора регионов", () -> region.click());
-        step("Проверка оторажение текста заголовка h2", () -> {
-            $x("//h2").shouldHave(text("Выберите регион для отображения"));
-        });
-        step("Нахждение в списках Адыгеи и выборка его", () -> $(byText("Адыгея")).click());
-        step("Проверка отображения название региона", () -> {
-            $(".region-name").shouldHave(text("Адыгея"));
-
-        });
-        step("Открытие дополнительных городов по данному региону", () -> cityForRegion.click());
-        step("Проверка, о раскрытии всех городов", () -> {
-            cityForRegion.shouldHave(text("Свернуть"));
-        });
-    }
 
     @Test
     @Story("Oko")

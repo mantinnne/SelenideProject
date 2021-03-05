@@ -17,6 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class UniverPage extends BaseOko {
+    RegionPage regionPage = new RegionPage();
 
     final String nameUniver = "Баумана";
     ElementsCollection bodyUniverName = $$(".university-name"),
@@ -29,7 +30,7 @@ public class UniverPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Поиск университета в регионе")
     void seachUniversities() {
-        step("Открытие региона", RegionPage::selectRegion);
+        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
         step("Переход на раздел Университеты", () -> $(byLinkText("Университеты")).click());
         step("Ввод название университета для поиска", () -> $x("//input[@class='app-input plain size-lg']").val(nameUniver));
         step("Открытие округа региона для отображения университетов", () -> $(".group-panel").click());
@@ -45,7 +46,7 @@ public class UniverPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Выбор университета в регионе")
     void regionSelectUniversities() {
-        step("Открытие региона", RegionPage::selectRegion);
+        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
         step("Переход на раздел Университеты", () -> $(byLinkText("Университеты")).click());
         sleep(500);
         step("Открытие округов университетов по округу", () -> {

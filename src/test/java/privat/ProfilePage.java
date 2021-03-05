@@ -143,7 +143,7 @@ public class ProfilePage extends BasePrivat {
         step("Выбор профиля", this::selectProfile);
         step("Проверка, что сброс методоки неактивен", () -> {
             refresh();
-            ElementsCollection collection = $$x("//select[@class='metodic__select-metodic']//option");
+            ElementsCollection collection = $$(".metodic__select-metodic >option");
             collection.first().shouldBe(disabled);
             step("Выборка методки у пользователя", () -> {
                 for (int i = 1; i < collection.size(); i++) {

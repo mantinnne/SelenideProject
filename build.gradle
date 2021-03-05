@@ -12,8 +12,8 @@ plugins {
 
 group 'cloud.autotests'
 version '1.0'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 ext {
     allureVersion = "2.13.8"
