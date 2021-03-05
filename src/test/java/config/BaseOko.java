@@ -27,7 +27,7 @@ public class BaseOko {
     static String url = "http://oko-stage.cism-ms.ru/";
 
 
-//    @BeforeAll
+    @BeforeAll
     public static void setup() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
