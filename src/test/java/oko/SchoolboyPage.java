@@ -23,8 +23,6 @@ public class SchoolboyPage extends BaseOko {
             tab = $$(".tab"),
             dissierSchoolBoyList = $$(".link-container >a");
 
-    SelenideElement profileBody = $(".profile-body");
-
     @Test
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
@@ -101,10 +99,10 @@ public class SchoolboyPage extends BaseOko {
     void schoolboySelectProfileCISM() {
         step("Выбор школы", () -> schoolPage.regionSelectSchool());
         step("Просмотр школьников и выбор первого школьника", () -> schoolLis.first().click());
-        step("Выбор профиля школьника", () -> $(byText("Профиль ЦИСМ")).click());
+        step("Переход в  профиль школьника", () -> $(byText("Профиль ЦИСМ")).click());
         step("Проверка загрузки профиля школы", () -> {
             switchTo().window(3);
-            $(".profile-general-data").shouldBe(visible);
+            $(".profile-main-data").shouldBe(visible);
         });
     }
 
@@ -117,32 +115,30 @@ public class SchoolboyPage extends BaseOko {
     void profileSchoolboyCismNavigation() {
         step("Выбор профиля школьника", this::schoolboySelectProfileCISM);
         step("Перебор навигации разделов профиля школьника", () -> {
-            ElementsCollection tabs = $$("li.tab").shouldHaveSize(7);
+            ElementsCollection tabs = $$(".link-container > a").shouldHaveSize(6);
+            tabs.get(3).click();
             for (int i = 0; i < tabs.size(); i++) {
                 tabs.get(i).click();
                 String tabText = tabs.get(i).getText();
                 step("Переход по разделам профиля школьника и проверка загрузки данных", () -> {
                     switch (tabText) {
-                        case "Общие данны":
-                            $(".profile-general-data").shouldBe(visible);
+                        case "Фото профиля":
+                            $(".profile-activity-photos").shouldBe(visible);
                             break;
                         case "Сетевой профиль":
-                            $("section.profile-network-profile").shouldBe(visible);
+                            $(".profile-main-data").shouldBe(visible);
                             break;
-                        case "Фото":
-                            profileBody.shouldBe(visible);
+                        case "Статусы профиля":
+                            $(".profile-statuses").shouldBe(visible);
                             break;
-                        case "Статусы":
-                            profileBody.shouldBe(visible);
+                        case "Связи/друзья профиля":
+                            $(".friends-list").shouldBe(visible);
                             break;
-                        case "Связи / друзья":
-                            profileBody.shouldBe(visible);
-                            break;
-                        case "Группы":
-                            profileBody.shouldBe(visible);
+                        case "Группы профиля":
+                            $(".profile-groups__publics-list").shouldBe(visible);
                             break;
                         case "Сетевая активность":
-                            profileBody.shouldBe(visible);
+                            $(".activity__feed").shouldBe(visible);
                             break;
 
                     }
@@ -150,5 +146,24 @@ public class SchoolboyPage extends BaseOko {
             }
         });
     }
+
+    @Test
+    @Story("Oko")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
+    @DisplayName("Проверка выбора методики у профиля во вкладке сетевая активность")
+    void profileSchoolboyCismCosialProfileFilterMetodic() {
+        step("Выбор профиля школьника", this::schoolboySelectProfileCISM);
+        step("Проверка ото");
+        step("Выборка методики у профиля для отображения", () -> {
+            ElementsCollection collection = $$(".methodic__select-methodic > option").shouldHaveSize(3);
+            for (int i = 1; i < collection.size(); i++) {
+                collection.get(i).click();
+                $(".methodic").shouldBe(visible);
+            }
+        });
+
+    }
+
 
 }

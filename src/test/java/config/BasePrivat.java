@@ -29,7 +29,7 @@ public abstract class BasePrivat {
     String profileList = ".profiles-list";
 
 
-    @BeforeAll
+//    @BeforeAll
 
     public static void setup() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();

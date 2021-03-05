@@ -58,7 +58,7 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка поиска сообщений по направлений у профилям")
     void selectMessagesForDirection() {
-        privat.selectForMesseage(62, 63, 1);
+        privat.selectForMesseage(63, 64, 1);
     }
 
     @Test
