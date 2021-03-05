@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class MainPage extends BasePrivat {
 
 
-    final String profileList = ".profile-line-block",
+    final String profileList = ".profile-info-container",
             regionFilter = "div#vs1__combobox",
             directionFilter = "div#vs2__combobox",
             cosialNetworkFilter = "div#vs3__combobox",
@@ -119,7 +119,6 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка фильтрации профилей по региону")
     void regionFilterProfile() {
-
         step("Выбор фильтра по региону и проверка количества регионов для фильтрации", () -> {
             region.click();
             filterList.shouldHaveSize(85);
@@ -363,7 +362,7 @@ public class MainPage extends BasePrivat {
         step("Нажатие на кнопку применения результатов", () -> $(buttonFilter).click());
         step("Ожидание загрузки профилей", () -> {
             $(".list").shouldBe(visible);
-            $(".double-bounce2").shouldBe(disappear, Duration.ofSeconds(20));
+            $(".double-bounce2").shouldBe(disappear, Duration.ofSeconds(40));
         });
         step("Выборка первого id не из БЗ", () -> $(byText("Не добавлять")).click());
         step("Добавление пользователя в БЗ", () -> {

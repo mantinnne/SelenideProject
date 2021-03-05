@@ -30,7 +30,6 @@ public abstract class BasePrivat {
 
 
     @BeforeAll
-
     public static void setup() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
@@ -45,7 +44,6 @@ public abstract class BasePrivat {
     @BeforeEach
     void login() {
         setSelenideConfiguration();
-        addListener("allure", new AllureSelenide());
 
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сесии", () -> {
@@ -76,7 +74,8 @@ public abstract class BasePrivat {
     }
 
     private static void setSelenideConfiguration() {
-        Configuration.timeout = 10000;
+        addListener("allure", new AllureSelenide());
+        Configuration.timeout = 15000;
         Configuration.startMaximized = true;
 
     }

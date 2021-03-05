@@ -30,7 +30,7 @@ public class BaseOko {
     static String url = "http://oko-stage.cism-ms.ru/";
 
 
-    @BeforeAll
+        @BeforeAll
     public static void setup() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
@@ -45,7 +45,6 @@ public class BaseOko {
     @BeforeEach
     void login() {
         setSelenideConfiguration();
-        addListener("allure", new AllureSelenide());
 
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
@@ -76,7 +75,7 @@ public class BaseOko {
     }
 
     private static void setSelenideConfiguration() {
-        Configuration.browserSize = "1920x1080";
+        addListener("allure", new AllureSelenide());
         Configuration.timeout = 15000;
         Configuration.startMaximized = true;
 

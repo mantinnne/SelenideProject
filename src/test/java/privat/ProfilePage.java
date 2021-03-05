@@ -194,7 +194,7 @@ public class ProfilePage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Посмотр групп у профиля и фильтрация по направлениям")
     void profileFilterGroupPolitical() {
-        profileFilterGroup(3, 4, 2);
+        profileFilterGroup(4, 5, 2);
     }
 
     @Test
@@ -241,13 +241,13 @@ public class ProfilePage extends BasePrivat {
         });
         step("Выбор сортировки друзей по направлениям и проверка количества направлений для фильтрации", () -> {
             dectructive.click();
-            direction.shouldHaveSize(62);
+            direction.shouldHaveSize(63);
         });
         step("Проверка появления кнопки сброса фильтрации при выборе фильтра", () -> {
             direction.first().click();
             dectructive.click();
             bounceWait.shouldBe(hidden);
-            direction.shouldHaveSize(63);
+            direction.shouldHaveSize(64);
         });
         step("Выбор направлений для сортировки друзей у профиля", () -> {
             for (int i = 1; i < direction.size(); i++) {
