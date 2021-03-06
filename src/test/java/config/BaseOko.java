@@ -6,6 +6,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -13,6 +14,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -54,11 +56,11 @@ public class BaseOko {
     public void cleanSession() {
 
         step("Закрытие сессии", () -> {
-            $(".logo").click();
+            $(".logo > a").click();
+            $("title").shouldHave(attribute("text", "ЦИСМ"));
             $(".user-info").click();
-            $(byText("Выйти")).click();
+            $(byLinkText("Выйти")).click();
         });
-
         Selenide.close();
     }
 

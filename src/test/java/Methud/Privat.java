@@ -28,7 +28,7 @@ public class Privat {
             sourceMessage.shouldHaveSize(size);
             for (SelenideElement element : sourceMessage) {
                 element.click();
-                waitBounce.shouldBe(visible).shouldHave(disappear, Duration.ofSeconds(20));
+                message.shouldBe(visible, Duration.ofSeconds(20));
             }
         });
     }

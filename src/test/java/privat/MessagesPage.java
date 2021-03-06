@@ -1,6 +1,7 @@
 package privat;
 
 import Methud.Privat;
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
@@ -17,6 +18,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static io.qameta.allure.Allure.step;
@@ -28,7 +30,7 @@ public class MessagesPage extends BasePrivat {
             inputKeyWord = $("#keywords"),
             waitBounce = $(".double-bounce2"),
             messeageProfileFilterID = $("#profile-id"),
-            messeageGroupFilterID = $("#profile-id");
+            messeageGroupFilterID = $("#group-id");
 
 
     @Test
@@ -71,10 +73,9 @@ public class MessagesPage extends BasePrivat {
         step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
         step("Ввод в поле поиска клчевого слова", () -> {
             inputKeyWord.val("Матрос");
-            waitBounce.shouldBe(visible).shouldHave(disappear);
         });
         step("Проверка отображения выделенного  ключевого слова на странице и цвет выделения", () -> {
-            ElementsCollection detected = $$("detected");
+            ElementsCollection detected = $$("detected").shouldHave(CollectionCondition.sizeNotEqual(0));
             for (SelenideElement element : detected) {
                 element.shouldBe(visible);
                 element.shouldHave(cssValue("background-color", "rgba(255, 255, 0, 1)"));
@@ -112,8 +113,7 @@ public class MessagesPage extends BasePrivat {
         step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
         step("Ввод id пользователя, для проверки фильтрации по id пользователя", () -> messeageProfileFilterID.val("12345"));
         step("Проверка отображения сообщения от пользователя с указанным id", () -> {
-            waitBounce.shouldHave(disappear, Duration.ofSeconds(20));
-            $(byText("Страховецкая Ева")).shouldBe(visible);
+            $$("td > a").find(text("Страховецкая Ева")).shouldHave(visible);
         });
     }
 
@@ -128,7 +128,7 @@ public class MessagesPage extends BasePrivat {
         step("Проверка отображения загрузки списка сообщений", () -> message.shouldBe(visible));
         step("Ввод id группы, для проверки фильтрации по id группы", () -> messeageGroupFilterID.val("12345"));
         step("Проверка отображения сообщения от пользователя с указанным id", () -> {
-            waitBounce.shouldHave(disappear, Duration.ofSeconds(20));
+            $$("td > span > a").find(text("12345")).shouldHave(visible);
         });
     }
 

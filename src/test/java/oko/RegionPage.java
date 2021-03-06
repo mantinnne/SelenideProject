@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -66,10 +68,11 @@ public class RegionPage extends BaseOko {
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Выгрузка pdf репорта по региону")
-    void regionDownloadReport() {
+    void regionDownloadReport()  {
         step("Выборка региона", () -> selectRegionView("Москва"));
         step("Скачивание репорта по региону", () -> {
-            $(".pdf-print").shouldHave(visible).download(DownloadOptions.using(FileDownloadMode.FOLDER));
+            $(".pdf-print").click();
+            sleep(1000);
         });
     }
 
