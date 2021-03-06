@@ -133,7 +133,6 @@ public class ProfilePage extends BasePrivat {
             }
         });
     }
-
     @Test
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
@@ -143,7 +142,7 @@ public class ProfilePage extends BasePrivat {
         step("Выбор профиля", this::selectProfile);
         step("Проверка, что сброс методоки неактивен", () -> {
             refresh();
-            ElementsCollection collection = $$(".metodic__select-metodic >option");
+            ElementsCollection collection = $$(".metodic__select-metodic > option");
             collection.first().shouldBe(disabled);
             step("Выборка методки у пользователя", () -> {
                 for (int i = 1; i < collection.size(); i++) {
@@ -164,7 +163,7 @@ public class ProfilePage extends BasePrivat {
         step("нахождение ссылки у профиля ", () -> $x("//span/a").click());
         step("Переключение на старницу VK и проверка открытия профиля", () -> {
             switchTo().window(1);
-            $("title").shouldHave(attribute("text", "Елена Макарова | ВКонтакте"));
+            $("title").shouldHave(attribute("text", "Elena Makarova | VK"));
             closeWindow();
             switchTo().window(0);
         });
