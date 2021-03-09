@@ -12,14 +12,14 @@ plugins {
 
 group 'cloud.autotests'
 version '1.0'
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-ext {
-    allureVersion = "2.13.8"
-    selenideVersion = "5.18.0"
-    junitVersion = "5.7.0"
-}
+def
+        allureVersion = "2.13.8",
+        selenideVersion = "5.18.0",
+        junitVersion = "5.7.0"
+
 
 repositories {
     maven { url = "https://dl.bintray.com/qameta/maven-unstable/" }
@@ -37,6 +37,7 @@ allure {
 
 dependencies {
     testImplementation(
+            "org.aspectj:aspectjweaver:1.9.6",
             "com.codeborne:selenide:${selenideVersion}",
             "com.codeborne:pdf-test:1.5.1",
             "com.codeborne:xls-test:1.4.3",
@@ -74,7 +75,7 @@ tasks.withType(Test) {
 
     testLogging {
         lifecycle {
-            events "started", "failed"
+            events "passed", "failed"
 //            events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }

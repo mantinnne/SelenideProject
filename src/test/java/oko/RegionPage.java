@@ -1,8 +1,6 @@
 package oko;
 
-import com.codeborne.selenide.DownloadOptions;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
 import io.qameta.allure.Severity;
@@ -13,10 +11,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
