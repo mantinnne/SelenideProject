@@ -34,6 +34,7 @@ public class BaseOko {
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 25000;
         Configuration.startMaximized = true;
+        Configuration.pageLoadTimeout = 60000;
     }
 
 
