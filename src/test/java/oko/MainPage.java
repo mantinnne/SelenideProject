@@ -31,7 +31,7 @@ public class MainPage extends BaseOko {
     @Test
     void waitLoadingMainPage() {
         step("Проверка загрузки страницы", () -> {
-            $("title").shouldHave(attribute("text", "ЦИСМ"));
+                $("title").shouldHave(attribute("text", "ЦИСМ"));
             $(mapTopPanel).shouldBe(visible);
             $(segmentBlock).shouldBe(visible);
             $(directionBlock).shouldBe(visible);
