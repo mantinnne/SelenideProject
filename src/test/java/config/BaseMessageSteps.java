@@ -1,7 +1,6 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +16,7 @@ import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static helpers.AttachmentsHelper.*;
 import static io.qameta.allure.Allure.step;
 
-public abstract class BasePrivat {
+public abstract class BaseMessageSteps {
 
     public Faker faker = new Faker();
     String name = "input[type='email']";
@@ -28,19 +27,18 @@ public abstract class BasePrivat {
 
     @BeforeAll
     public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+/*        DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
         capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";
+        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";*/
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 25000;
         Configuration.startMaximized = true;
         Configuration.pageLoadTimeout = 60000;
     }
-
 
     @BeforeEach
     void login() {
@@ -67,9 +65,6 @@ public abstract class BasePrivat {
             $(".user-info").click();
             $(byText("Выйти")).click();
         });
-        Selenide.clearBrowserCookies();
-        Selenide.clearBrowserLocalStorage();
-//        Selenide.close();
         closeWebDriver();
 
     }

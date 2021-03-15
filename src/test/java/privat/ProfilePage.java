@@ -1,23 +1,22 @@
 package privat;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BasePrivat;
+import config.BaseMessageSteps;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
-public class ProfilePage extends BasePrivat {
+public class ProfilePage extends BaseMessageSteps {
 
     final SelenideElement profileData = $(".profile-main-data");
     final SelenideElement groupData = $("div.profile-component-container");
@@ -60,7 +59,8 @@ public class ProfilePage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Выбор личной страницы профиля")
     public void selectProfile() {
-        step("Выбор личной страницы профиля и переход на неё", () -> linkProfile.shouldHaveSize(10).first().click());
+        step("Выбор личной страницы профиля и переход на неё", () -> linkProfile.shouldBe(CollectionCondition.allMatch("Кликабельны все элементы коллекции для перехода в личную страницу", WebElement::isEnabled))
+                .shouldHaveSize(10).first().click());
         step("Проверка открытого профиля и данны по нему", () -> {
             profileData.shouldBe(visible);
         });
@@ -133,6 +133,7 @@ public class ProfilePage extends BasePrivat {
             }
         });
     }
+
     @Test
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
@@ -379,6 +380,7 @@ public class ProfilePage extends BasePrivat {
 
     @Test
     @Story("Privat")
+    @Disabled("Пагинация по комментариям у профиля")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Активные комментарии пользователя")
@@ -390,6 +392,7 @@ public class ProfilePage extends BasePrivat {
     }
 
     @Test
+    @Disabled("Пагинация у профиля в стевой активности по лайкам")
     @Story("Privat")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})

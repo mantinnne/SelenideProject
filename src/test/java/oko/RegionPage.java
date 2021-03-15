@@ -46,7 +46,6 @@ public class RegionPage extends BaseOko {
         step("Нахждение в списках " + regionName + " и выборка его", () -> $(byLinkText(regionName)).click());
         step("Проверка отображения название региона", () -> {
             $(".region-name").shouldHave(text(regionName));
-
         });
     }
 

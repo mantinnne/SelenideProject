@@ -40,7 +40,7 @@ public class AttachmentsHelper {
         return System.getProperty("video_storage", "http://10.191.1.51:4444/video/") + getSessionId() + ".mp4";
     }
 
-    public static String getSessionId(){
+    public static String getSessionId() {
         return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 

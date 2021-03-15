@@ -1,10 +1,10 @@
 package privat;
 
-import Methud.Privat;
+import Methud.privat.MessageSteps;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BasePrivat;
+import config.BaseMessageSteps;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -19,8 +19,10 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static io.qameta.allure.Allure.step;
 
-public class MessagesPage extends BasePrivat {
-    Privat privat = new Privat();
+public class MessagesPage extends BaseMessageSteps {
+
+    MessageSteps steps = new MessageSteps();
+    String nameSection = "Сообщения";
 
     SelenideElement message = $(".posts-table"),
             inputKeyWord = $("#keywords"),
@@ -35,10 +37,8 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Открытие раздела messages")
     void selectMessages() {
-        step("Открытие раздела Messeages", () -> $(By.linkText("Сообщения")).click());
-        step("Проверка отображения загрузки списка сообщений", () -> {
-            message.shouldBe(visible);
-        });
+        steps.openMesseage(nameSection);
+        steps.checkMesseageLoading();
     }
 
     @Test
@@ -47,7 +47,9 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка поиска сообщений по теме  у профилей")
     void selectMessagesForTheme() {
-        privat.selectForMesseage(5, 6, 0);
+        steps.openMesseage(nameSection);
+        steps.checkMesseageLoading();
+        steps.selectForMesseage(5, 6, 0);
     }
 
     @Test
@@ -56,7 +58,9 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка поиска сообщений по направлений у профилям")
     void selectMessagesForDirection() {
-        privat.selectForMesseage(63, 64, 1);
+        steps.openMesseage(nameSection);
+        steps.checkMesseageLoading();
+        steps.selectForMesseage(63, 64, 1);
     }
 
     @Test
@@ -85,7 +89,9 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка поиска сообщений по источнику")
     void selectMessageSourceFilter() {
-        privat.selectMessage("source", 8);
+        steps.openMesseage(nameSection);
+        steps.checkMesseageLoading();
+        steps.selectMessage("source", 8);
 
     }
 
@@ -95,7 +101,9 @@ public class MessagesPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Проверка поиска сообщений по социальной сети")
     void selectMessageNetworkCosial() {
-        privat.selectMessage("group-snt", 9);
+        steps.openMesseage(nameSection);
+        steps.checkMesseageLoading();
+        steps.selectMessage("group-snt", 9);
 
     }
 

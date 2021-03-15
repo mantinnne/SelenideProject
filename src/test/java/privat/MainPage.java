@@ -2,7 +2,7 @@ package privat;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BasePrivat;
+import config.BaseMessageSteps;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -21,7 +21,7 @@ import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class MainPage extends BasePrivat {
+public class MainPage extends BaseMessageSteps {
 
 
     final String profileList = ".profile-info-container",
@@ -358,7 +358,7 @@ public class MainPage extends BasePrivat {
 
         });
         step("Геренация рандомных id профилей для проверки поиска", () -> {
-            int counter = faker.random().nextInt(10, 30);
+            int counter = faker.random().nextInt(4, 6);
             step("Ввод рандомных значений профилей для поиска", () -> {
                 for (int i = 0; i <= counter; i++) {
                     Integer numberID = faker.random().nextInt(1, 10000);
@@ -371,6 +371,15 @@ public class MainPage extends BasePrivat {
             $(".list").shouldBe(visible);
             $(".double-bounce2").shouldBe(disappear, Duration.ofSeconds(40));
         });
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.CRITICAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Быстрый поиск профилей")
+    void fastSeachProfileFilterAddProfileIsNotBase() {
+        step("Выбор профилей по быстрому поиску", this::fastSeachProfileFilter);
         step("Выборка первого id не из БЗ", () -> $(byText("Не добавлять")).click());
         step("Добавление пользователя в БЗ", () -> {
             buttonSave.click();
