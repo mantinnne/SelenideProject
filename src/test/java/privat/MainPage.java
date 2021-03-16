@@ -19,7 +19,6 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class MainPage extends BasePrivat {
@@ -85,16 +84,8 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка отображение загрузки светофора профилей и проверка их неравенства null")
     void profileTrafficlight() {
-        step("Провека отображение светофора", () -> {
-            profilesAggRatings.shouldBe(visible, Duration.ofSeconds(15));
-
-        });
-        step("Проверка значения у светофоров", () -> {
-            for (SelenideElement element : trafficValues) {
-                String text = element.getText();
-                assertNotEquals(null, text);
-            }
-        });
+        steps.loadingTrafficLight();
+        steps.checkTrafficValue();
     }
 
     @Test
@@ -103,13 +94,7 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка доступности выборки фильтров забаненные/удаленные")
     void checkFilterDeletedOrBanProfile() {
-        step("Проверка возможности выбрать фильтрацию по забанннеым / удаленным профилям", () -> {
-            for (SelenideElement chechBox : filterChechBox) {
-                chechBox.click();
-            }
-        });
-
-
+        steps.checkFilterDeletedOrBan();
     }
 
     @Test
@@ -118,29 +103,9 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка фильтрации профилей по региону")
     void regionFilterProfile() {
-        step("Выбор фильтра по региону и проверка количества регионов для фильтрации", () -> {
-            region.click();
-            filterList.shouldHaveSize(85);
-        });
-        step("Выбор доступного региона у фильтра и проверка отображение кнопки для сброса фильтров", () -> {
-            filterList.get(1).click();
-            region.click();
-            filterList.shouldHaveSize(86);
-        });
-        step("Перебор значений фильтрации по региону", () -> {
-
-            for (int i = 1; i < filterList.size(); i++) {
-                filterList.get(i).click();
-                $(profileList).shouldBe(visible);
-                region.click();
-                $(filterList.get(i)).shouldHave(cssClass(dropdownSelected));
-                region.click();
-            }
-        });
-        step("Сброс значения фильтров", () -> {
-            region.click();
-            filterList.get(0).click();
-        });
+        steps.checkResetFilter();
+        steps.selectAllFilterRegion();
+        steps.resetFilterSelected();
     }
 
     @Test
