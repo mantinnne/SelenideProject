@@ -2,7 +2,7 @@ package privat;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BaseMessageSteps;
+import config.BasePrivat;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
-public class GroupPage extends BaseMessageSteps {
+public class GroupPage extends BasePrivat {
     final static String group = "div.table";
     String groupList = "//tbody/tr",
             dropdownSelected = "vs__dropdown-option--selected";

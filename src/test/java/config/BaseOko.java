@@ -1,10 +1,13 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import config.oauth.TakeToken;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.attribute;
@@ -32,13 +35,17 @@ public class BaseOko {
         Configuration.browserCapabilities = capabilities;
         Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.timeout = 25000;
+        Configuration.timeout = 30_000;
+
+/*
         Configuration.startMaximized = true;
-        Configuration.pageLoadTimeout = 60000;
+*/
+        Configuration.pageLoadTimeout = 60_000;
     }
 
     @BeforeEach
     void login() {
+        Configuration.browserSize = "1920x1080";
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
             $(name).val("tester@cism-ms.ru");

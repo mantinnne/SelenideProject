@@ -37,6 +37,7 @@ allure {
 
 dependencies {
     testImplementation(
+            'io.rest-assured:rest-assured:4.3.3',
             "org.aspectj:aspectjweaver:1.9.6",
             "com.codeborne:selenide:${selenideVersion}",
             "com.codeborne:pdf-test:1.5.1",

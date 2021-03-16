@@ -2,21 +2,19 @@ package privat;
 
 import Methud.privat.DossierSteps;
 import com.codeborne.selenide.SelenideElement;
-import config.BaseMessageSteps;
+import config.BasePrivat;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Selenide.$;
 
 
-public class DossierPage extends BaseMessageSteps {
+public class DossierPage extends BasePrivat {
     String filterLastName = "Герасимов",
-            filterName = "Александр";
+            filterName = "Александр",
+            middleName = "Сергеевич";
 
     DossierSteps steps = new DossierSteps();
 
@@ -44,6 +42,7 @@ public class DossierPage extends BaseMessageSteps {
     void DossierFilterLastName() {
         steps.openDossier("Персоны");
         steps.filterLastName(filterLastName);
+        steps.applicationResults();
         steps.checkResultFilter(filterLastName);
     }
 
@@ -55,6 +54,7 @@ public class DossierPage extends BaseMessageSteps {
     void DossierFilterName() {
         steps.openDossier("Персоны");
         steps.filterFirstName(filterName);
+        steps.applicationResults();
         steps.checkResultFilter(filterName);
 
     }
@@ -68,7 +68,107 @@ public class DossierPage extends BaseMessageSteps {
         steps.openDossier("Персоны");
         steps.filterLastName(filterLastName);
         steps.filterFirstName(filterName);
+        steps.applicationResults();
         steps.checkResultFilter(filterLastName + " " + filterName);
 
     }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по Отчеству")
+    void DossierFilterMiddleName() {
+        steps.openDossier("Персоны");
+        steps.filterMiddleName(middleName);
+        steps.applicationResults();
+        steps.checkResultFilter(middleName);
+
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по Фамилии, Имени и Отчеству")
+    void DossierFilterMiddleNameAndNameAndFirstName() {
+        steps.openDossier("Персоны");
+        steps.filterLastName(filterLastName);
+        steps.filterMiddleName(middleName);
+        steps.filterFirstName(filterName);
+        steps.applicationResults();
+        steps.checkResultFilter(filterLastName + " " + filterName + " " + middleName);
+
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по дню рождения")
+    void DossierFilterBrithday() {
+        steps.openDossier("Персоны");
+        steps.filterHappyDay(12_30_1994);
+        steps.applicationResults();
+        steps.checkBrithday("1994-12-30");
+
+    }
+
+    @Test
+    @Disabled("Не работает")
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по номеру паспорта и серии")
+    void DossierFilterPassport() {
+        steps.openDossier("Персоны");
+        steps.loadingMoreFilter();
+        steps.inputNumberPassport("3840");
+        steps.inputSeriesPassport("384215");
+        steps.passportissuingauthority("Отделением УФМС");
+        steps.applicationResults();
+    }
+
+    @Test
+    @Disabled("Не работает")
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по номеру телефона")
+    void DossierFilterNumber() {
+        steps.openDossier("Персоны");
+        steps.loadingMoreFilter();
+        steps.inputPhoneNumberDossier("890251029407");
+        steps.applicationResults();
+
+    }
+
+    @Test
+    @Disabled("Не работает")
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по email ")
+    void DossierFilterEmail() {
+        steps.openDossier("Персоны");
+        steps.loadingMoreFilter();
+        steps.inputEmailDossier("as.nanao@gmail.com");
+        steps.applicationResults();
+
+    }
+
+    @Test
+    @Disabled("Не работает")
+    @Story("Privat")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
+    @DisplayName("Сортировка персоны по связанным социальным сетям ")
+    void DossierFilterBindedSnt() {
+        steps.openDossier("Персоны");
+        steps.loadingMoreFilter();
+        steps.inputDossierBinSnt("key");
+        steps.applicationResults();
+
+    }
+
 }

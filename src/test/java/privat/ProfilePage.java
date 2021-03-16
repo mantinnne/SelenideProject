@@ -3,7 +3,7 @@ package privat;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BaseMessageSteps;
+import config.BasePrivat;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
-public class ProfilePage extends BaseMessageSteps {
+public class ProfilePage extends BasePrivat {
 
     final SelenideElement profileData = $(".profile-main-data");
     final SelenideElement groupData = $("div.profile-component-container");

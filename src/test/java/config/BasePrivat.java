@@ -16,7 +16,7 @@ import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static helpers.AttachmentsHelper.*;
 import static io.qameta.allure.Allure.step;
 
-public abstract class BaseMessageSteps {
+public abstract class BasePrivat {
 
     public Faker faker = new Faker();
     String name = "input[type='email']";
@@ -27,21 +27,26 @@ public abstract class BaseMessageSteps {
 
     @BeforeAll
     public static void setup() {
-/*        DesiredCapabilities capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
         capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";*/
+        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.timeout = 25000;
+        Configuration.timeout = 30_000;
+
+/*
         Configuration.startMaximized = true;
-        Configuration.pageLoadTimeout = 60000;
+*/
+        Configuration.pageLoadTimeout = 60_000;
     }
 
     @BeforeEach
     void login() {
+        Configuration.browserSize = "1920x1080";
+
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сесии", () -> {
             $(submitBotton).shouldHave(disabled).click();

@@ -1,8 +1,9 @@
 package privat;
 
+import Methud.privat.MainSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import config.BaseMessageSteps;
+import config.BasePrivat;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -21,7 +22,9 @@ import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class MainPage extends BaseMessageSteps {
+public class MainPage extends BasePrivat {
+
+    MainSteps steps = new MainSteps();
 
 
     final String profileList = ".profile-info-container",
@@ -64,27 +67,16 @@ public class MainPage extends BaseMessageSteps {
             textArea = $(textAreas),
             buttonSave = $(withText("Сохранить"));
 
-    @Test
-    void startloadingMainPage() {
-        step("Проверка загрузки главной страницы", () -> {
-            $("title").shouldHave(attribute("text", "oko"));
-            $(profileList).shouldBe(visible, Duration.ofSeconds(15));
-        });
-    }
 
     @Test
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
-    @DisplayName("Загрузка допольнительных профилей")
+    @DisplayName("Загрузка допольнительных профилей на странице")
     void loadingMoreProfile() {
-        step("Проверка отображения доступных профилей", () -> {
-            profileListViev.shouldHaveSize(10);
-        });
-        step("Нажатие на кнопку загрузки допольнительных профилей", (Allure.ThrowableRunnableVoid) $(".button-load-more")::click);
-        step("Проверка отображение увелеченного количества профилей на странице", () -> {
-            profileListViev.shouldHaveSize(20);
-        });
+        steps.clickButtonLoading();
+        steps.checkLoadingProfile();
+
     }
 
     @Test
