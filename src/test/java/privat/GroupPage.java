@@ -1,5 +1,6 @@
 package privat;
 
+import Methud.privat.GroupSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
@@ -7,11 +8,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byLinkText;
@@ -19,8 +16,11 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class GroupPage extends BasePrivat {
-    final static String group = "div.table";
-    String groupList = "//tbody/tr",
+
+    GroupSteps steps = new GroupSteps();
+
+    final static String group = "div.table",
+            groupList = "//tbody/tr",
             dropdownSelected = "vs__dropdown-option--selected";
 
     final SelenideElement loadingFilter = $(byLinkText("Больше фильтров")),
@@ -35,17 +35,14 @@ public class GroupPage extends BasePrivat {
             conutDirectionFilterList = $$("li.vs__dropdown-option");
 
 
-
     @Test
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Открытие групп")
-    void selectGroup() {
-        step("Открытие раздела группы", () -> $(By.linkText("Группы")).click());
-        step("Проверка отображения загрузки списка групп", () -> {
-            $(group).shouldBe(visible);
-        });
+    void checkLoadingGroupPage() {
+        steps.selectGroup();
+
     }
 
     @Test
@@ -54,20 +51,9 @@ public class GroupPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка загрузки допольнительных профилей")
     void loadingMoreGroup() {
-        step("Открытие списка групп", this::selectGroup);
-
-        step("Загрузка дополнительных профилей", () -> {
-            ElementsCollection groups = $$x(groupList);
-
-            for (int i = 0; i < 10; i++) {
-                int s = groups.size();
-                $(".button-load-more").click();
-
-                step("Проверка загрузки дополнительных профилей", () -> {
-                    groups.shouldHaveSize(s + 10);
-                });
-            }
-        });
+        steps.selectGroup();
+        steps.checkLoadingGroup(100);
+        steps.checkListGroup(100);
     }
 
     @Test
@@ -76,17 +62,8 @@ public class GroupPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка сортировки групп")
     void sortGroup() {
-        step("Открытие списка групп", this::selectGroup);
-
-        step("Сортировка групп ", () -> {
-            ElementsCollection sortSelect = $$("a.sort-by").shouldHaveSize(3);
-            for (SelenideElement element : sortSelect) {
-                element.click();
-                step("Проверка загрузки отсортированных групп", () -> {
-                    $(bounceWait).shouldBe(disappear);
-                });
-            }
-        });
+        steps.selectGroup();
+        steps.sortGroupInPage();
     }
 
     @Test
@@ -95,17 +72,10 @@ public class GroupPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Поиск групп")
     void searchGroup() {
-        step("Открытие списка групп", this::selectGroup);
-
-        step("Ввод в поисковое окно название группы и нажатие на кнопку поиска ", () -> {
-            SelenideElement searchField = $("input[type='text']").shouldBe(visible);
-            searchField.val("Selo Company");
-            buttonFilter.click();
-        });
-
-        step("Проверка отображение нужной группы", () -> {
-            $$x(groupList).shouldHaveSize(1);
-        });
+        steps.selectGroup();
+        steps.inputSeachNameGroup("Selo Company");
+        steps.applyRelult();
+        steps.checkVievGroup("Selo Company");
 
     }
 
@@ -114,37 +84,23 @@ public class GroupPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Low")})
     @DisplayName("Загрузка допольнительных фильтров у группы")
     void loadingMoreFilter() {
-        step("Открытие списка групп", this::selectGroup);
-
-        step("Загрузка допольнительных фильтров группы", (Allure.ThrowableRunnableVoid) loadingFilter::click);
-
-        step("Проверка отображения дополнительных фильтров", () -> {
-            groupIdFilter.shouldBe(visible);
-            groupNameFilter.shouldBe(visible);
-            groupDomenFilter.shouldBe(visible);
-            groupFilterCosialNetwork.shouldHave(visible);
-            groupDirectionFilter.shouldHave(visible);
-        });
+        steps.selectGroup();
+        steps.loadingMoreFilterGroup();
+        steps.checkLoadingMoreFilterGroup();
     }
 
     @Test
+    @Disabled("Не работает из-за невозможности применить фильтр, без указания имени")
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Поиск групп  ID")
     void searchGroupFilterId() {
-        step("Открытие допольнительных фильтров у группы", this::loadingMoreFilter);
-
-        step("Ввод значение id в поле и нажатие на кнопку поиска", () -> {
-            groupIdFilter.val("1234");
-            buttonFilter.click();
-        });
-        step("Проверка отображение нужной группы", () -> {
-            //        $$x(groupList).shouldHaveSize(1);
-
-        });
-
-
+        steps.selectGroup();
+        steps.loadingMoreFilterGroup();
+        steps.inputIdGroupSeach("120306116");
+        steps.applyRelult();
+        steps.checkVievGroup("Selo Company");
     }
 
     @Test
@@ -153,31 +109,25 @@ public class GroupPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Поиск групп по названию")
     void searchGroupFilterName() {
-        step("Открытие допольнительных фильтров у группы", this::loadingMoreFilter);
-        step("Ввод названия группы в поле фильтра и нажатие на кнопку поиска", () -> {
-            groupNameFilter.val("BlackRose-DeadRose");
-            buttonFilter.click();
-        });
-        step("Проверка отображение нужной группы", () -> {
-            $$x(groupList).shouldHaveSize(1);
-
-        });
+        steps.selectGroup();
+        steps.loadingMoreFilterGroup();
+        steps.inputNameGroupFilter("BlackRose-DeadRose");
+        steps.applyRelult();
+        steps.checkVievGroup("BlackRose-DeadRose");
     }
 
     @Test
+    @Disabled("Не работает из-за невозможности применить фильтр, без указания имени")
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Поиск групп по названию домена")
     void searchGroupFilterDomen() {
-        step("Открытие допольнительных фильтров у группы", this::loadingMoreFilter);
-        step("Ввод названия домена группы в поле фильтра и нажатие на кнопку поиска", () -> {
-            groupDomenFilter.val("forest_offnik");
-            buttonFilter.click();
-        });
-        step("Проверка отображение результатов фильтра", () -> {
-            //        $$x(groupList).shouldHaveSize(1);
-        });
+        steps.selectGroup();
+        steps.loadingMoreFilterGroup();
+        steps.inputDomenGroupFilter("forest_offnik");
+        steps.applyRelult();
+        steps.checkVievGroup("forest_offnik");
     }
 
     @Test
