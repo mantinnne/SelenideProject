@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupSteps {
@@ -72,7 +73,7 @@ public class GroupSteps {
 
     @Step("Проверка  отображения  {0} группы")
     public GroupSteps checkVievGroup(String name) {
-        assertThat(groups.shouldHaveSize(1).get(0).getText(), (containsString(name)));
+        assertThat(groups.shouldHaveSize(1).get(0).getText(), is(containsString(name)));
         return this;
     }
 
@@ -99,6 +100,7 @@ public class GroupSteps {
         groupNameFilter.val(name);
         return this;
     }
+
     @Step("Ввод домены группы: {0}  в поле фильтра")
     public GroupSteps inputDomenGroupFilter(String name) {
         groupDomenFilter.val(name);

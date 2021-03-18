@@ -59,6 +59,7 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
+    System.setProperty("chromeoptions.prefs", "intl.accept_languages=en");
     systemProperties += System.properties
     System.setProperty("junit.jupiter.extensions.autodetection.enabled", "true")
 

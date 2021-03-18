@@ -27,13 +27,13 @@ public abstract class BasePrivat {
 
     @BeforeAll
     public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+/*        DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
         capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";
+        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";*/
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 30_000;
 
@@ -46,7 +46,6 @@ public abstract class BasePrivat {
     @BeforeEach
     void login() {
         Configuration.browserSize = "1920x1080";
-
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сесии", () -> {
             $(submitBotton).shouldHave(disabled).click();
@@ -54,7 +53,6 @@ public abstract class BasePrivat {
             $(password).val("id7@cS2jA");
             $(submitBotton).shouldNotHave(disabled).click();
             $("title").shouldHave(attribute("text", "oko"));
-
         });
     }
 
