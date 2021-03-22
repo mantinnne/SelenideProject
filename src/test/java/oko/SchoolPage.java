@@ -1,5 +1,6 @@
 package oko;
 
+import Methud.Oko.RegionSteps;
 import com.codeborne.selenide.ElementsCollection;
 import config.BaseOko;
 import io.qameta.allure.Severity;
@@ -20,6 +21,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class SchoolPage extends BaseOko {
+    RegionSteps steps = new RegionSteps();
     RegionPage regionPage = new RegionPage();
 
 
@@ -33,7 +35,8 @@ public class SchoolPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Поиск школы")
     void seacrhSchool() {
-        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
+        steps.selectRegion("Москва");
+        steps.checkSelectRegion("Москва");
         step("Выборка раздела школы", () -> $(byLinkText(school)).click());
         step("Ввод в поле поиска школа названия школы", () -> $x("//input[@class='app-input plain size-lg']").val("Школа Свиблово"));
         step("Открытие округа отображения школы", () -> $(".group-panel").click());
@@ -46,7 +49,8 @@ public class SchoolPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Выбор школы")
     void regionSelectSchool() {
-        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
+        steps.selectRegion("Москва");
+        steps.checkSelectRegion("Москва");
         step("Выборка раздела школы", () -> $(byLinkText(school)).click());
         step("Открытие округа для отображения школы", () -> $("span.title").click());
         step("Проверка отображения школ в округе", () -> $(".group-list").shouldBe(visible, Duration.ofSeconds(30)));

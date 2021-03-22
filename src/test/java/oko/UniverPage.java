@@ -1,5 +1,6 @@
 package oko;
 
+import Methud.Oko.RegionSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
@@ -17,6 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class UniverPage extends BaseOko {
+    RegionSteps steps = new RegionSteps();
     RegionPage regionPage = new RegionPage();
 
     final String nameUniver = "Баумана";
@@ -30,7 +32,8 @@ public class UniverPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Поиск университета в регионе")
     void seachUniversities() {
-        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
+        steps.selectRegion("Москва");
+        steps.checkSelectRegion("Москва");
         step("Переход на раздел Университеты", () -> $(byLinkText("Университеты")).click());
         step("Ввод название университета для поиска", () -> $x("//input[@class='app-input plain size-lg']").val(nameUniver));
         step("Открытие округа региона для отображения университетов", () -> $(".group-panel").click());
@@ -46,7 +49,8 @@ public class UniverPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Выбор университета в регионе")
     void regionSelectUniversities() {
-        step("Выборка региона", () -> regionPage.selectRegionView("Москва"));
+        steps.selectRegion("Москва");
+        steps.checkSelectRegion("Москва");
         step("Переход на раздел Университеты", () -> $(byLinkText("Университеты")).click());
         sleep(500);
         step("Открытие округов университетов по округу", () -> {

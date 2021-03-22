@@ -127,9 +127,15 @@ public class ProfileSteps {
     public ProfileSteps selectMetodicIsProfile() {
         for (int i = 1; i < collection.size(); i++) {
             collection.get(i).click();
-            if (collection.get(i).getText().equals("Деструктивная полная методика")) {
-                countMetodicRaiting.shouldHaveSize(18);
-            } else countMetodicRaiting.shouldHaveSize(14);
+            String text = collection.get(i).getText();
+            switch (text) {
+                case ("Деструктивная полная методика"):
+                    countMetodicRaiting.shouldHaveSize(18);
+                    break;
+                case ("Оппозиционная полная методика"):
+                    countMetodicRaiting.shouldHaveSize(14);
+                    break;
+            }
             bounceWait.shouldBe(disappear);
         }
         return this;

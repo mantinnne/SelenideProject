@@ -1,6 +1,7 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.WebDriverRunner;
 import config.oauth.TakeToken;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -11,6 +12,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -27,13 +29,14 @@ public class BaseOko {
 
     @BeforeAll
     public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+/*        DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
         capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");
+        Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");*/
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 30_000;
 
@@ -45,7 +48,9 @@ public class BaseOko {
 
     @BeforeEach
     void login() {
-        Configuration.browserSize = "1920x1080";
+/*        Configuration.fileDownload = FileDownloadMode.PROXY;
+        Configuration.proxyEnabled=true;*/
+
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
             $(name).val("tester@cism-ms.ru");
