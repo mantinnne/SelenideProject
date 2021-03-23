@@ -30,13 +30,13 @@ public class BaseOko {
     @BeforeAll
     public static void setup() {
 
-/*        DesiredCapabilities capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
         capabilities.setCapability("browserVersion", "88.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");*/
+        Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 30_000;
 

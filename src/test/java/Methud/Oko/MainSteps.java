@@ -12,8 +12,7 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static io.qameta.allure.Allure.step;
 
 public class MainSteps {
-    final String directionList = ".directions-list",
-            directionItem = ".direction-item",
+    final String
             zoomIn = "button[title='Zoom in']",
             zoomOut = "button[title='Zoom out']";
 
@@ -22,16 +21,16 @@ public class MainSteps {
             directionBlock = $("section[class='content-block directions-stat-block']"),
             streamBlock = $("section[class='content-block stream-block']");
 
-    ElementsCollection direction = $(directionList).$$(directionItem);
+    ElementsCollection direction = $(".directions-list").$$("direction-item");
 
 
     @Step("Проверка загрузки главной страницы и информации по всем регионам")
     public MainSteps loadingPageMain() {
         $("title").shouldHave(attribute("text", "ЦИСМ"));
-        mapTopPanel.shouldBe(visible);
-        segmentBlock.shouldBe(visible);
-        directionBlock.shouldBe(visible);
-        streamBlock.shouldBe(visible, Duration.ofSeconds(25));
+        mapTopPanel.shouldBe(visible, Duration.ofSeconds(40));
+        segmentBlock.shouldBe(visible, Duration.ofSeconds(40));
+        directionBlock.shouldBe(visible, Duration.ofSeconds(40));
+        streamBlock.shouldBe(visible, Duration.ofSeconds(40));
 
         return this;
     }

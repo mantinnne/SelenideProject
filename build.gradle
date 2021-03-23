@@ -58,7 +58,7 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
-    System.setProperty("chromeoptions.prefs", "intl.accept_languages=en");
+    System.setProperty("chromeoptions.prefs", "intl.accept_languages=en")
     systemProperties += System.properties
     System.setProperty("junit.jupiter.extensions.autodetection.enabled", "true")
 
@@ -75,6 +75,13 @@ tasks.withType(Test) {
 
 test {
     useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "passed", "failed"
+            exceptionFormat "short"
+        }
+    }
 }
 
 task oko_test(type: Test) {

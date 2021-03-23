@@ -13,14 +13,12 @@ import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class RegionPage extends BaseOko {
 
     RegionSteps steps = new RegionSteps();
-    MainPage mainPage = new MainPage();
     ElementsCollection navigationTabSelect = $$x("//li[@class='tab']/a");
 
 
@@ -82,7 +80,8 @@ public class RegionPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
     @DisplayName("Выбор направления по регионам")
     void regionSelectDirection() {
-        step("Выбор направления по регионам и проверка доступных регионов", () -> mainPage.checkSelectDirection());
+        steps.selectRegion("Москва");
+        steps.selectDirection();
     }
 
 

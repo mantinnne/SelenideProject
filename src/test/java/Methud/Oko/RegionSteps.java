@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byLinkText;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class RegionSteps {
@@ -17,7 +17,9 @@ public class RegionSteps {
             cityForRegion = $(".cities-toggle");
 
 
-    ElementsCollection layerControlItem = $(".map-layers-control").$$(".control-item");
+    ElementsCollection layerControlItem = $(".map-layers-control").$$(".control-item"),
+            direction = $$(".direction-item");
+
 
     @Step("Проверка содержания  текста у кнопки выбора региона")
     public RegionSteps checkFilterRegionNameButton() {
@@ -34,6 +36,7 @@ public class RegionSteps {
     @Step("Проверка оторажение текста заголовка выборки регионов")
     public RegionSteps checkTextFilterRegion() {
         $(".header-block > h2").shouldHave(text("Выберите регион для отображения"));
+        $x("//a[contains(@href, '#')]").click();
         return this;
     }
 
@@ -77,6 +80,17 @@ public class RegionSteps {
                 $(selenideElement).shouldHave(cssClass("active"));
                 selenideElement.click();
             });
+        }
+        return this;
+    }
+
+    @Step("Проверка возможности выбрать направления для фильтрации")
+    public RegionSteps selectDirection() {
+        direction.shouldHaveSize(5);
+        for (SelenideElement selenideElement : direction) {
+            selenideElement.click();
+            selenideElement.shouldHave(cssClass("active"));
+            $$x("//div[@class='title']").shouldHaveSize(1);
         }
         return this;
     }

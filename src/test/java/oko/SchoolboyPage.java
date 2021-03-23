@@ -1,5 +1,8 @@
 package oko;
 
+import Methud.Oko.RegionSteps;
+import Methud.Oko.SchoolSteps;
+import Methud.Oko.SchoolboySteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
@@ -14,6 +17,11 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class SchoolboyPage extends BaseOko {
+
+    RegionSteps regionSteps = new RegionSteps();
+    SchoolSteps schoolSteps = new SchoolSteps();
+    SchoolboySteps schoolboySteps = new SchoolboySteps();
+
     SchoolPage schoolPage = new SchoolPage();
     ElementsCollection schoolLis = $$(".app-inline-link > a"),
             tab = $$(".tab"),
@@ -25,8 +33,16 @@ public class SchoolboyPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Выбор личного профиля  школьника")
     void schoolboySelectDossier() {
-        step("Выбор школы", () -> schoolPage.regionSelectSchool());
-        step("Просмотр школьников и выбор первого школьника", () -> schoolLis.first().click());
+        regionSteps.selectRegion("Москва");
+        regionSteps.checkSelectRegion("Москва");
+        schoolSteps.selectSchoolForRegion();
+        schoolSteps.openDictrictVievSchool();
+        schoolSteps.checkVievSchoolForDictrict();
+        schoolSteps.findFirstSchoolOnList();
+        schoolSteps.switchWindows(1);
+        schoolSteps.checkLoadingSchools();
+        schoolboySteps.selectFirstSchoolboy();
+
     }
 
     @Test
@@ -35,47 +51,8 @@ public class SchoolboyPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Просмотр данных доступных по школьнику")
     void schoolboyCheckInfo() {
-        step("Выбор досье школьника", this::schoolboySelectDossier);
-        step("Выбор раздела с личными данными", () -> {
-            tab.shouldHaveSize(2);
-            tab.get(1).click();
-            $(".link-container").shouldBe(visible);
-            step("Проход по разделам досье школьника", () -> {
-                dissierSchoolBoyList.shouldHaveSize(6);
-                dissierSchoolBoyList.get(3).click();
-                for (SelenideElement element : dissierSchoolBoyList) {
-                    element.click();
-                    element.shouldHave(cssClass("nuxt-link-active"));
-                    step("Проверка загрузки данных по досье у школьника", () -> {
-                        String textFildDossier = element.getText();
-                        switch (textFildDossier) {
-                            case "Сетевой профиль":
-                                $(".profile-text-data__header").shouldBe(visible);
-                                $(".profile-text-data__info").shouldBe(visible);
-                                $(".methodic").shouldBe(visible);
-                                $(".profileStats").shouldBe(visible);
-                                break;
-                            case "Фото профиля":
-                                $(".profile-photos").shouldBe(visible);
-                                break;
-                            case "Статусы профиля":
-                                $(".profile-statuses__data").shouldBe(visible);
-                                break;
-                            case "Связи/друзья профиля":
-                                $(".friends-list").shouldBe(visible);
-                                break;
-                            case "Группы профиля":
-                                $(".groups-sidebar").shouldBe(visible);
-                                break;
-                            case "Сетевая активность":
-                                $(".activity__controls-wrapper").shouldBe(visible);
-                                break;
-                        }
-                    });
-                }
-            });
-
-        });
+        schoolboySelectDossier();
+        schoolboySteps.openInfoSchoolboy();
     }
 
     @Test
