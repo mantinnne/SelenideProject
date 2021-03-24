@@ -41,7 +41,9 @@ public class ProfileSteps {
             buttonSave = $(".app-button"),
             commentAnalytics = $(".analytics__comment"),
             periodEventProfile = $("select.custom-input"),
-            tableFromProfileActivity = $(".post-table"),
+            tableFromProfileActivity = $(".comments-list"),
+            idFilter = $(".filter-input"),
+            button = $(".app-button"),
             profileHeader = $(".profile-text-data__header");
 
 
@@ -56,6 +58,7 @@ public class ProfileSteps {
             countMetodicRaiting = $$x("//table[@class='metodic__metrics']//tr"),
             lisLinkVkProfile = $$(".name-link > a "),
             analyticsProfileSelect = $$(".analytics__select"),
+            tab = $$(".tab"),
             analyticsProfileSelectPeriod = $$(".custom-input > option");
 
     @Step("Выбор личной страницы профиля: {0}")
@@ -185,13 +188,6 @@ public class ProfileSteps {
         return this;
     }
 
-    @Step("Проверка количества направлений деструктива  для фильтрации")
-    public ProfileSteps checkCountFilterDirection(int size) {
-        direction.shouldHaveSize(size);
-
-        return this;
-    }
-
     @Step("Проверка появления возможности  сбросить фильтр")
     public ProfileSteps checkResetFilter(ElementsCollection elements, int size, int fullSize, int number) {
         SelenideElement element = $(".vs__selected-options", number);
@@ -317,4 +313,105 @@ public class ProfileSteps {
         }
         return this;
     }
+
+    @Step("Открытие раздела Активность у пользователя")
+    public ProfileSteps openActivityProfile() {
+        selectActivityInPrifle.click();
+        return this;
+    }
+
+    @Step("Переход в активные комментарии пользователя")
+    public ProfileSteps selectCommentProfile() {
+        $(byText("Комментарии")).click();
+        return this;
+    }
+
+    @Step("Проверка загрузки таблицы с комментариями у выбранного пользователя")
+    public ProfileSteps checkCommentProfile() {
+        tableFromProfileActivity.shouldHave(visible);
+        return this;
+    }
+
+    @Step("Проверка отображения текста при  не найденных комментариях у пользователя")
+    public ProfileSteps checkCommentProfileNotFind() {
+        $(".activity__comments").shouldHave(text("Комментарии в деструктивных группах не обнаружены"));
+        return this;
+    }
+
+    @Step("Переход в посты пользователя")
+    public ProfileSteps selectPostProfile() {
+        $(byText("Посты")).click();
+        return this;
+    }
+
+    @Step("Проверка отображения на странице о не найденных комментариях")
+    public ProfileSteps checkTextNotFindPost() {
+        $(".posts-block").shouldHave(text("Посты в деструктивных группах не обнаружены"));
+        return this;
+    }
+
+    @Step("Проверка отображения на странице  найденных комментариях")
+    public ProfileSteps checkTextFindPost() {
+        $(".posts-block__wrapper").shouldBe(visible);
+        return this;
+    }
+
+    @Step("Поиск определенного профиля: -> {0} по id")
+    public ProfileSteps selectProfile(String id) {
+        idFilter.val(id);
+        button.click();
+        linkProfile.shouldHaveSize(1).first().click();
+        return this;
+    }
+
+    @Step("Переход в раздел Фотографии")
+    public ProfileSteps selectPhotoProfile() {
+        $(byText("Фотографии")).click();
+        return this;
+    }
+
+    @Step("Проверка отображения текста при не найденных фотографий по пользователю")
+    public ProfileSteps checkTextNotFindPhoto() {
+        $(".activity-photos").shouldHave(text("Фото не найдены"));
+        return this;
+    }
+
+    @Step("Переход в раздел 'Отметки - Нравятся' ")
+    public ProfileSteps selectLikes() {
+        $(byText("Отметки “Нравится”")).click();
+        return this;
+    }
+
+    @Step("Проверка контента по лайкам пользователя")
+    public ProfileSteps checkSelectLikes() {
+        $(".likes-list").shouldBe(visible);
+        $$(".like ").first().shouldBe(visible);
+        return this;
+    }
+
+    @Step("Проверка текста об отсутствии контекта")
+    public ProfileSteps checkSelectLikesNotFind() {
+        $(".activity-likes").shouldHave(text("Лайки в деструктивных группах не обнаружены"));
+        return this;
+    }
+
+    @Step("Переход в раздел 'Другой контент' ")
+    public ProfileSteps selectOther() {
+        $(byText("Другой контент")).click();
+        return this;
+    }
+
+    @Step("Проверка загрузки другого контента по пользователю")
+    public ProfileSteps checkSelectOtherContent() {
+        $(".values-list").shouldBe(visible);
+        return this;
+    }
+
+    @Step("Проверка отобрадения текста о том, что контент не найден")
+    public ProfileSteps checkSelectOtherContentNotFind() {
+        $(".activity__feed").shouldHave(text("Значения не обнаружены"));
+        return this;
+    }
+
+
 }

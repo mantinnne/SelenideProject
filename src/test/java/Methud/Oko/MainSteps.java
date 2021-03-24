@@ -21,7 +21,7 @@ public class MainSteps {
             directionBlock = $("section[class='content-block directions-stat-block']"),
             streamBlock = $("section[class='content-block stream-block']");
 
-    ElementsCollection direction = $(".directions-list").$$("direction-item");
+    ElementsCollection direction = $(".directions-list").$$(".direction-item");
 
 
     @Step("Проверка загрузки главной страницы и информации по всем регионам")

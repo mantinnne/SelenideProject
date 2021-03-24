@@ -4,16 +4,18 @@ import Methud.Oko.RegionSteps;
 import Methud.Oko.SchoolSteps;
 import Methud.Oko.SchoolboySteps;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static io.qameta.allure.Allure.step;
 
 public class SchoolboyPage extends BaseOko {
@@ -61,14 +63,9 @@ public class SchoolboyPage extends BaseOko {
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Проверка выбора методики у профиля во вкладке сетевая активность")
     void profileSchoolboyCismCosialProfileFilterMetodic() {
-        step("Выбор профиля школьника", this::schoolboySelectDossier);
-        tab.get(1).click();
-        step("Выборка методики у профиля для отображения", () -> {
-            ElementsCollection collection = $$(".methodic__select-methodic > option").shouldHaveSize(3);
-            for (int i = 1; i < collection.size(); i++) {
-                collection.get(i).click();
-                $(".methodic").shouldBe(visible);
-            }
-        });
+        schoolboySelectDossier();
+        schoolboySteps.selectProfileVievSchoolboy();
+        schoolSteps.selectSection("Сетевая активность");
+        schoolboySteps.navigationActiv();
     }
 }

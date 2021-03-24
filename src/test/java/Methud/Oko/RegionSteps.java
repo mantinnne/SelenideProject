@@ -18,7 +18,7 @@ public class RegionSteps {
 
 
     ElementsCollection layerControlItem = $(".map-layers-control").$$(".control-item"),
-            direction = $$(".direction-item");
+            direction = $(".directions-list").$$(".direction-item");
 
 
     @Step("Проверка содержания  текста у кнопки выбора региона")

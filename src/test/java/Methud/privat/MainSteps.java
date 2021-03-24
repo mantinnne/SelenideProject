@@ -202,7 +202,7 @@ public class MainSteps {
     }
 
 
-    @Step("Применение результатов поиска по id профиля")
+    @Step("Применение результатов поиска  профилей")
     public MainSteps applyResult() {
         button.click();
         return this;

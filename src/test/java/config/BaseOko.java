@@ -1,18 +1,13 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.FileDownloadMode;
-import com.codeborne.selenide.WebDriverRunner;
-import config.oauth.TakeToken;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -24,33 +19,24 @@ public class BaseOko {
     static String name = "input[type='email']";
     static String password = "input[type='password']";
     static String submitBotton = "button[type='submit']";
-    static String url = "http://oko-stage.cism-ms.ru/";
-
+    static String url = System.getProperty("url", "http://oko-stage.cism-ms.ru/");
 
     @BeforeAll
     public static void setup() {
-
         DesiredCapabilities capabilities = new DesiredCapabilities();
         Configuration.browser = System.getProperty("browser", "chrome");
-        capabilities.setCapability("browserVersion", "88.0");
+        capabilities.setCapability("browserVersion", "89.0");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         Configuration.timeout = 30_000;
-
-/*
-        Configuration.startMaximized = true;
-*/
         Configuration.pageLoadTimeout = 60_000;
     }
 
     @BeforeEach
     void login() {
-/*        Configuration.fileDownload = FileDownloadMode.PROXY;
-        Configuration.proxyEnabled=true;*/
-
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
             $(name).val("tester@cism-ms.ru");

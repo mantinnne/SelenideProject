@@ -16,7 +16,9 @@ targetCompatibility = 1.8
 def
         allureVersion = "2.13.8",
         junitVersion = "5.7.0",
-        selenideVersion = "5.20.0"
+        selenideVersion = "5.20.0",
+        ownerVersion = "1.0.12"
+
 
 
 repositories {
@@ -33,7 +35,8 @@ allure {
 }
 
 dependencies {
-    testCompile(
+    testImplementation(
+            "org.aeonbits.owner:owner:$ownerVersion",
             'io.rest-assured:rest-assured:4.3.3',
             "org.aspectj:aspectjweaver:1.9.6",
             "com.codeborne:selenide:$selenideVersion",
@@ -75,6 +78,7 @@ tasks.withType(Test) {
 
 test {
     useJUnitPlatform()
+    systemProperties += System.properties
 
     testLogging {
         lifecycle {

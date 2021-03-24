@@ -8,8 +8,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.CollectionCondition.containTexts;
 import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -128,6 +127,11 @@ public class SchoolSteps {
             $$(".directions-cell > span").shouldHave(containTexts(text));
             filterSchoolboyField.click();
         }
+        return this;
+    }
+    @Step("Переход в раздел: {0} ")
+    public SchoolSteps selectSection(String nameSection) {
+        $(byText(nameSection)).click();
         return this;
     }
 }

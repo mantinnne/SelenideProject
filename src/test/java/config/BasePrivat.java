@@ -1,7 +1,6 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
-import com.github.javafaker.Faker;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,12 +17,10 @@ import static io.qameta.allure.Allure.step;
 
 public abstract class BasePrivat {
 
-    public Faker faker = new Faker();
     String name = "input[type='email']";
     String password = "input[type='password']";
     String submitBotton = "button[type='submit']";
-    String url = "http://oko-private-stage.cism-ms.ru/";
-
+    static String url = System.getProperty("url", "http://oko-private-stage.cism-ms.ru/");
 
     @BeforeAll
     public static void setup() {

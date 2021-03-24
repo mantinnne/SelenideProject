@@ -32,7 +32,6 @@ public class MainPage extends BaseOko {
 
     }
 
-
     @Test
     @Story("Oko")
     @Severity(SeverityLevel.MINOR)

@@ -2,42 +2,23 @@ package privat;
 
 import Methud.privat.ProfileSteps;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-import static io.qameta.allure.Allure.step;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ProfilePage extends BasePrivat {
 
     ProfileSteps steps = new ProfileSteps();
-
     final String nameProfile = "Макарова Елена";
-
-    final SelenideElement
-            dectructive = $(".vs__selected-options"),
-            activityProfile = $(".activity__feed"),
-            selectAnalyticsInPrifle = $(".link-container").$(byText("Аналитика")),
-            selectEventInPrifle = $(byText("События")),
-            selectActivityInPrifle = $(byText("Активность")),
-            buttonSave = $(".app-button"),
-            commentAnalytics = $(".analytics__comment"),
-            periodEventProfile = $("select.custom-input"),
-            tableFromProfileActivity = $(".post-table");
-
-
     final ElementsCollection
-            direction = $$(".vs__dropdown-option"),
-            dateByEvent = $$("input[type='date']"),
-            analyticsProfileSelectDate = $$(".analytics__select > option"),
-            analyticsProfileSelectPeriod = $$(".custom-input > option");
+            direction = $$(".vs__dropdown-option");
 
     @Test
     @Story("Privat")
@@ -229,66 +210,114 @@ public class ProfilePage extends BasePrivat {
         steps.selectProfilePage(nameProfile);
         steps.openEventProfile();
         steps.checkSelectDateReport();
-
-
-            }
-
-    @Test
-    @Story("Privat")
-    @Severity(SeverityLevel.MINOR)
-    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
-    @DisplayName("Активность  по профилю сортировка постов")
-    void profileActivityPost() {
-        step("Выбор профиля", this::selectProfile);
-        step("Открытие событий у  выбранного пользователя", (Allure.ThrowableRunnableVoid) selectActivityInPrifle::click);
-        step("Выбор сортировки групп по направлениям и проверка количества направлений для фильтрации", () -> {
-            dectructive.click();
-            direction.shouldHaveSize(2);
-        });
-        step("Проверка появления кнопки сброса фильтрации при выборе фильтра", () -> {
-            direction.first().click();
-            dectructive.click();
-            direction.shouldHaveSize(3);
-        });
-        step("Выбор направлений для сортировки групп у профиля", () -> {
-            for (int i = 1; i < direction.size(); i++) {
-                direction.get(i).click();
-                activityProfile.shouldBe(visible);
-                dectructive.click();
-                direction.get(i).shouldHave(cssClass("vs__dropdown-option--selected"));
-            }
-        });
-        step("Сброс примененных фильтров", () -> {
-            direction.get(0).click();
-            activityProfile.shouldBe(visible);
-        });
     }
 
     @Test
     @Story("Privat")
-    @Disabled("Пагинация по комментариям у профиля")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Активные комментарии пользователя")
     void profileActivityComment() {
-        step("Выбор профиля", this::selectProfile);
-        step("Открытие событий у  выбранного пользователя", (Allure.ThrowableRunnableVoid) selectActivityInPrifle::click);
-        step("Переход в активные комментарии пользователя", () -> $(byText("Комментарии")).click());
-        step("Проверка загрузки таблицы с комментариями у выбранного пользователя", () -> tableFromProfileActivity.shouldHave(visible));
+        steps.selectProfilePage(nameProfile);
+        steps.openActivityProfile();
+        steps.selectCommentProfile();
+        steps.checkCommentProfile();
     }
 
     @Test
-    @Disabled("Пагинация у профиля в стевой активности по лайкам")
     @Story("Privat")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
-    @DisplayName("Активные лайки пользователя")
-    void profileActivityLikes() {
-        step("Выбор профиля", this::selectProfile);
-        step("Открытие событий у  выбранного пользователя", (Allure.ThrowableRunnableVoid) selectActivityInPrifle::click);
-        step("Переход в активные комментарии пользователя", () -> $(byText("Лайки")).click());
-//        step("Проверка отображения лайков у пользователя ", () -> );
-
-
+    @DisplayName("Проверка отображения текста, при не   найденных комментариях")
+    void profileActivityCommentNotFind() {
+        steps.selectProfile("2");
+        steps.openActivityProfile();
+        steps.selectCommentProfile();
+        steps.checkCommentProfileNotFind();
     }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения текста, при не найденных постах")
+    void profileActivityPostNotFind() {
+        steps.selectProfilePage(nameProfile);
+        steps.openActivityProfile();
+        steps.selectPostProfile();
+        steps.checkTextNotFindPost();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения текста, при  найденных постах")
+    void profileActivityPostFind() {
+        steps.selectProfile("447");
+        steps.openActivityProfile();
+        steps.selectPostProfile();
+        steps.checkTextFindPost();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения текста, при не найденных фото")
+    void profileActivityPhotoNotFind() {
+        steps.selectProfilePage(nameProfile);
+        steps.openActivityProfile();
+        steps.selectPhotoProfile();
+        steps.checkTextNotFindPhoto();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения контекта, который профиль лайкнул")
+    void profileActivityLikes() {
+        steps.selectProfile("447");
+        steps.openActivityProfile();
+        steps.selectLikes();
+        steps.checkSelectLikes();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения текста о том, что контента по лайкам нет у пользователя")
+    void profileActivityLikesNotFind() {
+        steps.selectProfile("19494");
+        steps.openActivityProfile();
+        steps.selectLikes();
+        steps.checkSelectLikesNotFind();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения другого контента у пользователя")
+    void profileActivityOtherContent() {
+        steps.selectProfile("19494");
+        steps.openActivityProfile();
+        steps.selectOther();
+        steps.checkSelectOtherContent();
+    }
+
+    @Test
+    @Story("Privat")
+    @Severity(SeverityLevel.MINOR)
+    @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
+    @DisplayName("Проверка отображения другого контента у пользователя")
+    void profileActivityOtherContentNotFind() {
+        steps.selectProfile("46364300");
+        steps.openActivityProfile();
+        steps.selectOther();
+        steps.checkSelectOtherContentNotFind();
+    }
+
 }

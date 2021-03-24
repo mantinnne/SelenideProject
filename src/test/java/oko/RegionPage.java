@@ -13,7 +13,8 @@ import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$x;
 import static io.qameta.allure.Allure.step;
 
 public class RegionPage extends BaseOko {
@@ -44,6 +45,10 @@ public class RegionPage extends BaseOko {
     }
 
     @Test
+    @Story("Oko")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
+    @DisplayName("Открытие дополнительных городв по региону")
     void regionMoreCityLoading() {
         steps.selectRegion("Адыгея");
         steps.checkSelectRegion("Адыгея");
@@ -81,6 +86,7 @@ public class RegionPage extends BaseOko {
     @DisplayName("Выбор направления по регионам")
     void regionSelectDirection() {
         steps.selectRegion("Москва");
+        steps.checkSelectRegion("Москва");
         steps.selectDirection();
     }
 
