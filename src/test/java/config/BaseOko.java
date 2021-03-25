@@ -2,6 +2,7 @@ package config;
 
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,27 +17,37 @@ import static io.qameta.allure.Allure.step;
 
 public class BaseOko {
 
+    static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
+
     static String name = "input[type='email']";
     static String password = "input[type='password']";
     static String submitBotton = "button[type='submit']";
-    static String url = System.getProperty("url", "http://oko-stage.cism-ms.ru/");
+    static String url = config.getUrlOko();
+/*    Map<String, String> cookiesAuthMain = new TakeToken().main();
+    Map<String, String> cookiesAuthCore = new TakeTokenCore().main();*/
+
 
     @BeforeAll
     public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        Configuration.browser = System.getProperty("browser", "chrome");
-        capabilities.setCapability("browserVersion", "89.0");
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-        Configuration.remote = System.getProperty("remoteUrl", "http://10.191.1.51:4444/wd/hub/");
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.timeout = 30_000;
-        Configuration.pageLoadTimeout = 60_000;
+        Configuration.browser = config.getWebBrowser();
+        Configuration.browserVersion = config.getVersionBrowser();
+        Configuration.startMaximized = true;
+
+        if (config.getRemoteUrl() != null) {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", true);
+            Configuration.browserCapabilities = capabilities;
+            Configuration.remote = config.getRemoteUrl();
+
+        }
     }
 
     @BeforeEach
-    void login() {
+    void login() {/*
+        WebDriverRunner.getWebDriver().manage().addCookie((Cookie) cookiesAuthCore);
+        WebDriverRunner.getWebDriver().manage().addCookie((Cookie) cookiesAuthMain);*/
         step("Открытие сайта " + url, () -> open(url));
         step("Открытие сессии", () -> {
             $(name).val("tester@cism-ms.ru");

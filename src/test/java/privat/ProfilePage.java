@@ -284,7 +284,7 @@ public class ProfilePage extends BasePrivat {
         steps.checkSelectLikes();
     }
 
-    @Test
+    @Test()
     @Story("Privat")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})

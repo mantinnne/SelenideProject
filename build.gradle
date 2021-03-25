@@ -16,7 +16,7 @@ targetCompatibility = 1.8
 def
         allureVersion = "2.13.8",
         junitVersion = "5.7.0",
-        selenideVersion = "5.20.0",
+        selenideVersion = "5.20.1",
         ownerVersion = "1.0.12"
 
 

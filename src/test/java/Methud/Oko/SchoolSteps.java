@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.CollectionCondition.containTexts;
+import static com.codeborne.selenide.CollectionCondition.containExactTextsCaseSensitive;
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byLinkText;
@@ -124,7 +124,7 @@ public class SchoolSteps {
             $(xx.get(i)).click();
             if (i == 4) return this;
             $(".school-children-table table").shouldBe(visible);
-            $$(".directions-cell > span").shouldHave(containTexts(text));
+            $$(".directions-cell > span").should(containExactTextsCaseSensitive(text));
             filterSchoolboyField.click();
         }
         return this;

@@ -2,6 +2,7 @@ package config;
 
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,27 +18,29 @@ import static io.qameta.allure.Allure.step;
 
 public abstract class BasePrivat {
 
+    static final WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
+
     String name = "input[type='email']";
     String password = "input[type='password']";
     String submitBotton = "button[type='submit']";
-    static String url = System.getProperty("url", "http://oko-private-stage.cism-ms.ru/");
+    static String url = config.getUrlPrivat();
+
 
     @BeforeAll
     public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        Configuration.browser = System.getProperty("browser", "chrome");
-        capabilities.setCapability("browserVersion", "88.0");
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "http://10.191.1.51:4444/wd/hub/";
-        addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        Configuration.timeout = 30_000;
 
-/*
+        addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        Configuration.browser = config.getWebBrowser();
+        Configuration.browserVersion = config.getVersionBrowser();
         Configuration.startMaximized = true;
-*/
-        Configuration.pageLoadTimeout = 60_000;
+
+        if (config.getRemoteUrl() != null) {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", true);
+            Configuration.browserCapabilities = capabilities;
+            Configuration.remote = config.getRemoteUrl();
+        }
     }
 
     @BeforeEach
@@ -57,8 +60,8 @@ public abstract class BasePrivat {
         attachScreenshot("Last screenshot");
         attachPageSource();
         attachAsText("Browser console logs", getConsoleLogs());
-        attachVideo();
-
+        if (config.videoStorage() != null)
+            attachVideo();
         step("Закрытие сесии", () -> {
             $(".logo").click();
             $(".user-info").click();

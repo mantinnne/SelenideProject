@@ -7,6 +7,8 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -150,8 +152,8 @@ public class ProfileSteps {
         for (SelenideElement element : buttonCreateReport) {
             element.as("Скачивание репорта по профилю: " + element.getText()).click();
             step("Ожидание появляения окна отчета и его скрытие", () -> {
-                createReportFild.shouldBe(visible);
-                createReportFild.shouldBe(disappear);
+                createReportFild.shouldBe(visible,Duration.ofSeconds(15));
+                createReportFild.shouldBe(disappear, Duration.ofSeconds(15));
             });
         }
         return this;
@@ -372,7 +374,7 @@ public class ProfileSteps {
 
     @Step("Проверка отображения текста при не найденных фотографий по пользователю")
     public ProfileSteps checkTextNotFindPhoto() {
-        $(".activity-photos").shouldHave(text("Фото не найдены"));
+        $(".activity-photos > p").shouldHave(text("Фото не найдены"));
         return this;
     }
 
@@ -384,8 +386,8 @@ public class ProfileSteps {
 
     @Step("Проверка контента по лайкам пользователя")
     public ProfileSteps checkSelectLikes() {
-        $(".likes-list").shouldBe(visible);
-        $$(".like ").first().shouldBe(visible);
+        $(".likes-list").shouldBe(visible, Duration.ofSeconds(30));
+        $$(".like ").first().shouldBe(visible, Duration.ofSeconds(30));
         return this;
     }
 
