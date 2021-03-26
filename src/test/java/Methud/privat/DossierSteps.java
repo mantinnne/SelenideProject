@@ -1,6 +1,5 @@
 package Methud.privat;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -17,7 +16,7 @@ public class DossierSteps {
             middleNameInput = $("#middle-name"),
             buttonSaveResult = $(".app-button"),
             birthdayInput = $("#birthday"),
-            bounceWait = $(".double-bounce2");
+            bounceWait = $(".spinner");
 
     @Step("Открытие раздела {0}")
     public DossierSteps openDossier(String namePage) {
@@ -109,7 +108,7 @@ public class DossierSteps {
 
     @Step("Проверка результатов поиска по значению :->  {0}")
     public DossierSteps checkResultFilter(String check) {
-        bounceWait.shouldBe(hidden);
+        bounceWait.shouldBe(visible).shouldBe(hidden);
         $$(".table-row-title").filter(text(check)).get(0).shouldHave(text(check));
         return this;
 

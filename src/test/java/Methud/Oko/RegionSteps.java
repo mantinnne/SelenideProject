@@ -13,8 +13,8 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class RegionSteps {
-    SelenideElement region = $("button[class='region-picker-button app-button filled size-md']"),
-            cityForRegion = $(".cities-toggle");
+    String region = "button[class='region-picker-button app-button filled size-md']",
+            cityForRegion = ".cities-toggle";
 
 
     ElementsCollection layerControlItem = $(".map-layers-control").$$(".control-item"),
@@ -23,13 +23,13 @@ public class RegionSteps {
 
     @Step("Проверка содержания  текста у кнопки выбора региона")
     public RegionSteps checkFilterRegionNameButton() {
-        region.shouldHave(text("Вся Россия"));
+        $(region).shouldHave(text("Вся Россия"));
         return this;
     }
 
     @Step("Нажатие на кнопку выбора регионов")
     public RegionSteps clickButtonFilterRegion() {
-        region.click();
+        $(region).click();
         return this;
     }
 
@@ -42,7 +42,7 @@ public class RegionSteps {
 
     @Step("Выбор региона: {0} ")
     public RegionSteps selectRegion(String nameRegion) {
-        region.click();
+        $(region).click();
         $(byLinkText(nameRegion)).click();
         return this;
     }
@@ -55,14 +55,14 @@ public class RegionSteps {
 
     @Step("Открытие дополнительных городов по  региону")
     public RegionSteps openMoreCityForRegion() {
-        cityForRegion.click();
+        $(cityForRegion).click();
 
         return this;
     }
 
     @Step("Проверка раскрытия всех городв по региону")
     public RegionSteps checkOpenMoreCityForRegion() {
-        cityForRegion.shouldHave(text("Свернуть"));
+        $(cityForRegion).shouldHave(text("Свернуть"));
         return this;
     }
 

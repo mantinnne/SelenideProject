@@ -88,6 +88,7 @@ public class RegionPage extends BaseOko {
         steps.selectRegion("Москва");
         steps.checkSelectRegion("Москва");
         steps.selectDirection();
+
     }
 
 
