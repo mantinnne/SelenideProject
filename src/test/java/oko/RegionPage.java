@@ -4,6 +4,7 @@ import Methud.Oko.RegionSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -23,7 +24,7 @@ public class RegionPage extends BaseOko {
     ElementsCollection navigationTabSelect = $$x("//li[@class='tab']/a");
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -34,7 +35,7 @@ public class RegionPage extends BaseOko {
         steps.checkTextFilterRegion();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -44,7 +45,7 @@ public class RegionPage extends BaseOko {
         steps.checkSelectRegion("Москва");
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -56,7 +57,7 @@ public class RegionPage extends BaseOko {
         steps.checkOpenMoreCityForRegion();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Требуется доработка прокси")
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
@@ -68,7 +69,7 @@ public class RegionPage extends BaseOko {
         steps.downloadReportForRegion();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -79,7 +80,7 @@ public class RegionPage extends BaseOko {
         steps.selectVievSchoolAndUniversity();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -92,7 +93,7 @@ public class RegionPage extends BaseOko {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -103,7 +104,7 @@ public class RegionPage extends BaseOko {
         steps.hiddenPanelStaticticForRegion();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -116,7 +117,7 @@ public class RegionPage extends BaseOko {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("low")})

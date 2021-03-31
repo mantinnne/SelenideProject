@@ -2,6 +2,7 @@ package oko;
 
 import Methud.Oko.MainSteps;
 import config.BaseOko;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class MainPage extends BaseOko {
     MainSteps steps = new MainSteps();
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Oko"), @Tag("Medium")})
@@ -22,7 +23,7 @@ public class MainPage extends BaseOko {
         steps.loadingPageMain();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Oko"), @Tag("Medium")})
@@ -32,7 +33,7 @@ public class MainPage extends BaseOko {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Oko"), @Tag("Low")})

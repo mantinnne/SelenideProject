@@ -4,6 +4,7 @@ import Methud.Oko.RegionSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BaseOko;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -26,7 +27,7 @@ public class UniverPage extends BaseOko {
             districtUniversiteties = $$(".group-panel");
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -43,7 +44,7 @@ public class UniverPage extends BaseOko {
         });
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})

@@ -3,6 +3,7 @@ package privat;
 import Methud.privat.DossierSteps;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -25,7 +26,7 @@ public class DossierPage extends BasePrivat {
             bounceWait = $(".double-bounce2");
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -34,7 +35,7 @@ public class DossierPage extends BasePrivat {
         steps.openDossier("Персоны");
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -46,7 +47,7 @@ public class DossierPage extends BasePrivat {
         steps.checkResultFilter(filterLastName);
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -59,7 +60,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -73,7 +74,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -86,7 +87,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -101,7 +102,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -114,7 +115,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает")
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
@@ -129,7 +130,7 @@ public class DossierPage extends BasePrivat {
         steps.applicationResults();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает")
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
@@ -143,7 +144,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает")
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
@@ -157,7 +158,7 @@ public class DossierPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает")
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)

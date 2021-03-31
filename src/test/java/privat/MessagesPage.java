@@ -3,6 +3,7 @@ package privat;
 import Methud.privat.MessageSteps;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -24,7 +25,7 @@ public class MessagesPage extends BasePrivat {
             messeageGroupFilterID = $("#group-id");
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -34,7 +35,7 @@ public class MessagesPage extends BasePrivat {
         steps.checkMesseageLoading();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -46,7 +47,7 @@ public class MessagesPage extends BasePrivat {
         steps.selectForMesseage(5, 6, 0);
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -58,7 +59,7 @@ public class MessagesPage extends BasePrivat {
         steps.selectForMesseage(63, 64, 1);
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -71,7 +72,7 @@ public class MessagesPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -83,7 +84,7 @@ public class MessagesPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -95,7 +96,7 @@ public class MessagesPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -108,7 +109,7 @@ public class MessagesPage extends BasePrivat {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -122,7 +123,7 @@ public class MessagesPage extends BasePrivat {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Сортировка сообщений по дате")
     @Story("Messages")
     @Severity(SeverityLevel.NORMAL)

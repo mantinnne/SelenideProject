@@ -4,6 +4,7 @@ import Methud.privat.MainSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -11,6 +12,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
@@ -45,16 +49,16 @@ public class MainPage extends BasePrivat {
             buttonSave = $(withText("Сохранить"));
 
 
-    @Test
     @Story("Privat")
+    @RepeatedIfExceptionsTest(repeats = 3, exceptions = NoSuchElementException.class)
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Загрузка допольнительных профилей на странице")
     void loadingMoreProfile() {
         steps.clickButtonLoading();
         steps.checkLoadingProfile();
-
     }
+
 
     @Test
     @Story("Privat")

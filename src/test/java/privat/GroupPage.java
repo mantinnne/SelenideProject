@@ -4,6 +4,7 @@ import Methud.privat.GroupSteps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.BasePrivat;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -35,7 +36,7 @@ public class GroupPage extends BasePrivat {
             conutDirectionFilterList = $$("li.vs__dropdown-option");
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -45,7 +46,7 @@ public class GroupPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
@@ -56,7 +57,7 @@ public class GroupPage extends BasePrivat {
         steps.checkListGroup(100);
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
@@ -66,7 +67,7 @@ public class GroupPage extends BasePrivat {
         steps.sortGroupInPage();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -79,7 +80,7 @@ public class GroupPage extends BasePrivat {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Low")})
     @DisplayName("Загрузка допольнительных фильтров у группы")
@@ -89,7 +90,7 @@ public class GroupPage extends BasePrivat {
         steps.checkLoadingMoreFilterGroup();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает из-за невозможности применить фильтр, без указания имени")
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
@@ -103,7 +104,7 @@ public class GroupPage extends BasePrivat {
         steps.checkVievGroup("Selo Company");
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -116,7 +117,7 @@ public class GroupPage extends BasePrivat {
         steps.checkVievGroup("BlackRose-DeadRose");
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Disabled("Не работает из-за невозможности применить фильтр, без указания имени")
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
@@ -130,7 +131,7 @@ public class GroupPage extends BasePrivat {
         steps.checkVievGroup("forest_offnik");
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
@@ -162,7 +163,7 @@ public class GroupPage extends BasePrivat {
         });
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.CRITICAL)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})

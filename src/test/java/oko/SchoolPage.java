@@ -3,6 +3,7 @@ package oko;
 import Methud.Oko.RegionSteps;
 import Methud.Oko.SchoolSteps;
 import config.BaseOko;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -15,7 +16,7 @@ public class SchoolPage extends BaseOko {
     RegionSteps regionSteps = new RegionSteps();
     SchoolSteps schoolSteps = new SchoolSteps();
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
@@ -33,7 +34,7 @@ public class SchoolPage extends BaseOko {
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
     @DisplayName("Выбор школы")
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     void regionSelectSchool() {
         regionSteps.selectRegion("Москва");
         regionSteps.checkSelectRegion("Москва");
@@ -47,7 +48,7 @@ public class SchoolPage extends BaseOko {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Low")})
@@ -65,7 +66,7 @@ public class SchoolPage extends BaseOko {
     }
 
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("High")})
@@ -81,7 +82,7 @@ public class SchoolPage extends BaseOko {
         schoolSteps.checkOpenStaticticsSchool();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
@@ -96,7 +97,7 @@ public class SchoolPage extends BaseOko {
         schoolSteps.sortSchoolboy();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})

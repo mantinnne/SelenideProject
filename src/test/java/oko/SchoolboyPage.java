@@ -5,6 +5,7 @@ import Methud.Oko.SchoolSteps;
 import Methud.Oko.SchoolboySteps;
 import com.codeborne.selenide.ElementsCollection;
 import config.BaseOko;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -29,7 +30,7 @@ public class SchoolboyPage extends BaseOko {
             tab = $$(".tab"),
             dissierSchoolBoyList = $$(".link-container >a");
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
@@ -47,7 +48,7 @@ public class SchoolboyPage extends BaseOko {
 
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
@@ -57,7 +58,7 @@ public class SchoolboyPage extends BaseOko {
         schoolboySteps.openInfoSchoolboy();
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})

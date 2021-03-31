@@ -36,6 +36,7 @@ allure {
 
 dependencies {
     testImplementation(
+            "io.github.artsok:rerunner-jupiter:2.1.6",
             "org.aeonbits.owner:owner:$ownerVersion",
             'io.rest-assured:rest-assured:4.3.3',
             "org.aspectj:aspectjweaver:1.9.6",

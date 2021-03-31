@@ -3,6 +3,7 @@ package privat;
 import Methud.privat.ProfileSteps;
 import com.codeborne.selenide.ElementsCollection;
 import config.BasePrivat;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -284,16 +287,22 @@ public class ProfilePage extends BasePrivat {
         steps.checkSelectLikes();
     }
 
-    @Test()
+    @RepeatedIfExceptionsTest(repeats = 3)
     @Story("Privat")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Проверка отображения текста о том, что контента по лайкам нет у пользователя")
     void profileActivityLikesNotFind() {
-        steps.selectProfile("19494");
-        steps.openActivityProfile();
-        steps.selectLikes();
-        steps.checkSelectLikesNotFind();
+        try {
+            steps.selectProfile("19494");
+            steps.openActivityProfile();
+            steps.selectLikes();
+            steps.checkSelectLikesNotFind();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println();
+        }
+
     }
 
     @Test
@@ -312,7 +321,7 @@ public class ProfilePage extends BasePrivat {
     @Story("Privat")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
-    @DisplayName("Проверка отображения другого контента у пользователя")
+    @DisplayName("Проверка отображения надписи о не найденном  другом контенте  у пользователя ")
     void profileActivityOtherContentNotFind() {
         steps.selectProfile("46364300");
         steps.openActivityProfile();
