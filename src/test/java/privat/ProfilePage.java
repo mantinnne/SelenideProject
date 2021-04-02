@@ -329,11 +329,4 @@ public class ProfilePage extends BasePrivat {
         steps.checkSelectOtherContentNotFind();
     }
 
-    @Test
-    void lambaTest() {
-        step("Открытие страницы", () -> open("google.ru"));
-        $("#input").as("Кнопка ввода");
-        $("#input").as("Кнопка ввода -> #input");
-    }
-
 }
