@@ -38,15 +38,11 @@ public class MainPage extends BasePrivat {
 
     final SelenideElement profilesAggRatings = $(".profiles-agg-ratings"),
             region = $("div#vs1__combobox"),
-            button = $(".app-button"),
             direction = $("div#vs2__combobox"),
             cosialNetwork = $("div#vs3__combobox"),
             metodic = $("div#vs4__combobox"),
             minRating = $("#min-range"),
-            maxRating = $("#max-range"),
-            textArea = $("textarea"),
-            countGroup = $("div#vs5__combobox"),
-            buttonSave = $(withText("Сохранить"));
+            maxRating = $("#max-range");
 
 
     @Story("Privat")
@@ -96,13 +92,15 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("Medium")})
     @DisplayName("Проверка фильтрации профилей по id профиля")
     void idFilterProfile() {
-        steps.inputFirstIdProfile();
+        steps.inputFirstIdProfile("276482327");
         steps.applyResult();
-        steps.checkSearchProfileRelult(1);
+        steps.checkSearchProfileRelult(1,"276482327" );
         steps.resetFilterId();
         steps.SearcSomeProfileResult(6);
         steps.applyResult();
+/*
         steps.checkSearchProfileRelult(6);
+*/
     }
 
     @Test

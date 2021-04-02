@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
+import static io.qameta.allure.Allure.step;
 
 public class ProfilePage extends BasePrivat {
 
@@ -257,7 +257,7 @@ public class ProfilePage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Проверка отображения текста, при  найденных постах")
     void profileActivityPostFind() {
-        steps.selectProfile("447");
+        steps.selectProfile("262687131");
         steps.openActivityProfile();
         steps.selectPostProfile();
         steps.checkTextFindPost();
@@ -311,7 +311,7 @@ public class ProfilePage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Проверка отображения другого контента у пользователя")
     void profileActivityOtherContent() {
-        steps.selectProfile("19494");
+        steps.selectProfile("498505175");
         steps.openActivityProfile();
         steps.selectOther();
         steps.checkSelectOtherContent();
@@ -323,10 +323,17 @@ public class ProfilePage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("low")})
     @DisplayName("Проверка отображения надписи о не найденном  другом контенте  у пользователя ")
     void profileActivityOtherContentNotFind() {
-        steps.selectProfile("46364300");
+        steps.selectProfile("163316772");
         steps.openActivityProfile();
         steps.selectOther();
         steps.checkSelectOtherContentNotFind();
+    }
+
+    @Test
+    void lambaTest() {
+        step("Открытие страницы", () -> open("google.ru"));
+        $("#input").as("Кнопка ввода");
+        $("#input").as("Кнопка ввода -> #input");
     }
 
 }

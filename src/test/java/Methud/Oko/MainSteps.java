@@ -7,8 +7,7 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class MainSteps {
@@ -52,4 +51,5 @@ public class MainSteps {
         step("Увелечение зума у карты", () -> $(zoomOut).click());
         return this;
     }
+
 }

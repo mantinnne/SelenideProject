@@ -1,24 +1,35 @@
 package oko;
 
 import Methud.Oko.RegionSteps;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import config.BaseOko;
+import constants.RegionEnum;
 import io.github.artsok.RepeatedIfExceptionsTest;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import oauth.TakeToken;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.io.FileNotFoundException;
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.*;
+import static constants.Constant.regionvalues;
 import static io.qameta.allure.Allure.step;
 
 public class RegionPage extends BaseOko {
+
+    TakeToken token = new TakeToken();
+
+    static String name = "input[type='email']";
+    static String password = "input[type='password']";
+    static String submitBotton = "button[type='submit']";
+
 
     RegionSteps steps = new RegionSteps();
     ElementsCollection navigationTabSelect = $$x("//li[@class='tab']/a");
@@ -91,6 +102,13 @@ public class RegionPage extends BaseOko {
         steps.selectDirection();
 
     }
+
+/*    @ParameterizedTest
+    @EnumSource(RegionEnum.class)
+    void testRegion(RegionEnum regionEnum) {
+        open("http://oko-stage.cism-ms.ru/heatmap/region/" + regionEnum.code + "");
+        $(".report-operation-data").shouldBe(visible);
+    }*/
 
 
     @RepeatedIfExceptionsTest(repeats = 3)

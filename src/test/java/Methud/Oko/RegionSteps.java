@@ -6,14 +6,13 @@ import io.qameta.allure.Step;
 
 import java.io.FileNotFoundException;
 
-import static com.codeborne.selenide.Condition.cssClass;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class RegionSteps {
-    String region = "button[class='region-picker-button app-button filled size-md']",
+    String region = "button.region-picker-button",
             cityForRegion = ".cities-toggle";
 
 
@@ -50,13 +49,13 @@ public class RegionSteps {
     @Step("Проверка выбранного региона {0}")
     public RegionSteps checkSelectRegion(String regionName) {
         $(".region-name").shouldHave(text(regionName));
+        $(".operation-data-content").shouldBe(visible);
         return this;
     }
 
     @Step("Открытие дополнительных городов по  региону")
     public RegionSteps openMoreCityForRegion() {
         $(cityForRegion).click();
-
         return this;
     }
 

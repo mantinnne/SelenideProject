@@ -1,5 +1,6 @@
 package Methud.privat;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
@@ -7,9 +8,11 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.CollectionCondition.containExactTextsCaseSensitive;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MainSteps {
@@ -163,9 +166,9 @@ public class MainSteps {
     }
 
 
-    @Step("Ввод в поле сортировки профилей id одного профиля и нажатие на кнопку поиска")
-    public MainSteps inputFirstIdProfile() {
-        idFilter.val(String.valueOf(faker.random().nextInt(1, 1000)));
+    @Step("Ввод в поле сортировки профилей id: > {0} ")
+    public MainSteps inputFirstIdProfile(String id) {
+        idFilter.val(id);
         return this;
     }
 
@@ -196,8 +199,10 @@ public class MainSteps {
 
 
     @Step("Проверка отображения результатов поиска по id пользователя")
-    public MainSteps checkSearchProfileRelult(int profileSize) {
+    public MainSteps checkSearchProfileRelult(int profileSize, String id) {
         profileListViev.shouldHaveSize(profileSize);
+        String text = $(".name-link > a").getText();
+        assertThat(text).contains(id);
         return this;
     }
 
@@ -217,7 +222,6 @@ public class MainSteps {
 
     @Step("Проверка возможности добавить пользовател, которого нет в базе данных")
     public MainSteps checkAddProfileIsNotBase() {
-
         $(byText("Не добавлять")).click();
         buttonSave.click();
         buttonSave.shouldBe(disappear);
