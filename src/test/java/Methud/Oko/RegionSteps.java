@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byLinkText;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
@@ -42,7 +43,7 @@ public class RegionSteps {
     @Step("Выбор региона: {0} ")
     public RegionSteps selectRegion(String nameRegion) {
         $(region).click();
-        $(byLinkText(nameRegion)).click();
+        $(byText(nameRegion)).click();
         return this;
     }
 

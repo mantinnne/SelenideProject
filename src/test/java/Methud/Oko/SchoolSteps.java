@@ -119,12 +119,16 @@ public class SchoolSteps {
     @Step("Фильтрация  школьников по направлениям")
     public SchoolSteps filterSchoolboy() {
         filterSchoolboyField.click();
-        for (int i = 0; i < xx.size(); i++) {
-            String text = $(xx.get(i)).getText();
+        xx.first().click();
+        filterSchoolboyField.click();
+
+        for (int i = 1; i < xx.size(); i++) {
             $(xx.get(i)).click();
-            if (i == 4) return this;
+            if (i == 5) {
+                filterSchoolboyField.click();
+                xx.first().click();
+            }
             $(".school-children-table table").shouldBe(visible);
-            $$(".directions-cell > span").should(containExactTextsCaseSensitive(text));
             filterSchoolboyField.click();
         }
         return this;

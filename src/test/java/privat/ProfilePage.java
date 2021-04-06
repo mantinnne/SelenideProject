@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 
 import static com.codeborne.selenide.Selenide.*;
-import static io.qameta.allure.Allure.step;
 
 public class ProfilePage extends BasePrivat {
 
@@ -294,7 +293,7 @@ public class ProfilePage extends BasePrivat {
     @DisplayName("Проверка отображения текста о том, что контента по лайкам нет у пользователя")
     void profileActivityLikesNotFind() {
         try {
-            steps.selectProfile("19494");
+            steps.selectProfile("498505175");
             steps.openActivityProfile();
             steps.selectLikes();
             steps.checkSelectLikesNotFind();

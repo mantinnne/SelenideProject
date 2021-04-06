@@ -35,7 +35,7 @@ public class RegionPage extends BaseOko {
     ElementsCollection navigationTabSelect = $$x("//li[@class='tab']/a");
 
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -46,7 +46,7 @@ public class RegionPage extends BaseOko {
         steps.checkTextFilterRegion();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -56,7 +56,7 @@ public class RegionPage extends BaseOko {
         steps.checkSelectRegion("Москва");
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -68,7 +68,7 @@ public class RegionPage extends BaseOko {
         steps.checkOpenMoreCityForRegion();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Disabled("Требуется доработка прокси")
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
@@ -80,7 +80,7 @@ public class RegionPage extends BaseOko {
         steps.downloadReportForRegion();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -91,7 +91,7 @@ public class RegionPage extends BaseOko {
         steps.selectVievSchoolAndUniversity();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -103,15 +103,15 @@ public class RegionPage extends BaseOko {
 
     }
 
-/*    @ParameterizedTest
+    @ParameterizedTest
     @EnumSource(RegionEnum.class)
     void testRegion(RegionEnum regionEnum) {
         open("http://oko-stage.cism-ms.ru/heatmap/region/" + regionEnum.code + "");
         $(".report-operation-data").shouldBe(visible);
-    }*/
+    }
 
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -122,7 +122,7 @@ public class RegionPage extends BaseOko {
         steps.hiddenPanelStaticticForRegion();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("medium")})
@@ -135,7 +135,7 @@ public class RegionPage extends BaseOko {
     }
 
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 2)
     @Story("Oko")
     @Severity(SeverityLevel.MINOR)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("low")})

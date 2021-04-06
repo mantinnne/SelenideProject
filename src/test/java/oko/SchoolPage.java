@@ -97,7 +97,10 @@ public class SchoolPage extends BaseOko {
         schoolSteps.sortSchoolboy();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    /*
+        @RepeatedIfExceptionsTest(repeats = 3)
+    */
+    @Test
     @Story("Oko")
     @Severity(SeverityLevel.NORMAL)
     @Tags({@Tag("Oko"), @Tag("Web"), @Tag("Medium")})
