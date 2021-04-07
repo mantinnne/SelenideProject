@@ -102,8 +102,8 @@ public class RegionPage extends BaseOko {
         steps.selectDirection();
 
     }
-
     @ParameterizedTest
+    @Disabled
     @EnumSource(RegionEnum.class)
     void testRegion(RegionEnum regionEnum) {
         open("http://oko-stage.cism-ms.ru/heatmap/region/" + regionEnum.code + "");
