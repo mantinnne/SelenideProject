@@ -86,7 +86,7 @@ public class ProfilePage extends BasePrivat {
         steps.selectProfilePage(nameProfile);
         steps.selectGroupInProfile();
         steps.checkLoadingGroupProfile();
-        steps.checkResetFilter(direction, 26, 27, 0);
+        steps.checkResetFilter(direction, 25, 26, 0);
         steps.selectAllDirectionGroupFilter(direction, 0);
 
     }
@@ -100,7 +100,7 @@ public class ProfilePage extends BasePrivat {
         steps.selectProfilePage(nameProfile);
         steps.selectGroupInProfile();
         steps.checkLoadingGroupProfile();
-        steps.checkResetFilter(direction, 19, 20, 1);
+        steps.checkResetFilter(direction, 20, 21, 1);
         steps.selectAllDirectionGroupFilter(direction, 1);
     }
 
