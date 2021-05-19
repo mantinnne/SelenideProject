@@ -374,7 +374,7 @@ public class ProfileSteps {
 
     @Step("Проверка отображения текста при не найденных фотографий по пользователю")
     public ProfileSteps checkTextNotFindPhoto() {
-        $(".activity-photos > p").shouldHave(text("Фото не найдены"));
+        $(".activity__photos > p").shouldHave(text("Фото не найдены"));
         return this;
     }
 

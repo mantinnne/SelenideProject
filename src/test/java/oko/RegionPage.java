@@ -102,6 +102,7 @@ public class RegionPage extends BaseOko {
         steps.selectDirection();
 
     }
+
     @ParameterizedTest
     @Disabled
     @EnumSource(RegionEnum.class)

@@ -115,6 +115,7 @@ public class MainSteps {
     public MainSteps selectCountGroupForDirection() {
         for (int i = 1; i < conutGroupFilterList.size(); i++) {
             profilesAggRatings.shouldBe(visible, Duration.ofSeconds(15));
+            profilesAggRatings.shouldBe(visible, Duration.ofSeconds(15));
             for (SelenideElement element : trafficValues) {
                 String text = element.getText();
                 if (text.equals("0")) {

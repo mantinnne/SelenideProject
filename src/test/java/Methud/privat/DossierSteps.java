@@ -10,7 +10,7 @@ import static org.openqa.selenium.By.linkText;
 
 public class DossierSteps {
     ElementsCollection DossierFilterCollection = $$(".custom-input");
-    SelenideElement dossierList = $(".profiles-list"),
+    SelenideElement dossierList = $(".app-table > tbody > tr"),
             lastNameDossier = $("#last-name"),
             firstNameDossier = $("#first-name"),
             middleNameInput = $("#middle-name"),

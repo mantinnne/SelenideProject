@@ -113,7 +113,7 @@ public class ProfilePage extends BasePrivat {
         steps.selectProfilePage(nameProfile);
         steps.selectGroupInProfile();
         steps.checkLoadingGroupProfile();
-        steps.checkResetFilter(direction, 4, 5, 2);
+        steps.checkResetFilter(direction, 8, 9, 2);
         steps.selectAllDirectionGroupFilter(direction, 2);
     }
 
@@ -150,7 +150,7 @@ public class ProfilePage extends BasePrivat {
         steps.selectProfilePage(nameProfile);
         steps.selectFriendsInProfile();
         steps.checkFriendsInProfilesLoading();
-        steps.checkResetFilter(direction, 63, 64, 0);
+        steps.checkResetFilter(direction, 67, 68, 0);
         steps.selectAllDirectionGroupFilter(direction, 0);
 
     }
@@ -301,7 +301,6 @@ public class ProfilePage extends BasePrivat {
             e.printStackTrace();
             System.out.println();
         }
-
     }
 
     @Test
