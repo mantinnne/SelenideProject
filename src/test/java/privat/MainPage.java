@@ -162,7 +162,6 @@ public class MainPage extends BasePrivat {
     @Tags({@Tag("web"), @Tag("Privat"), @Tag("High")})
     @DisplayName("Быстрый поиск профилей")
     void fastSeachProfileFilter() {
-
         steps.selectFastSeachProfile();
         steps.generationIdProfile();
         steps.applyResult();

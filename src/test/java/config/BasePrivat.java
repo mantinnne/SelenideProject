@@ -69,8 +69,8 @@ public abstract class BasePrivat {
             $(byText("Выйти")).click();
         });
         closeWebDriver();
-
     }
+
 
 
 }

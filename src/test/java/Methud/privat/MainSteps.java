@@ -115,7 +115,6 @@ public class MainSteps {
     public MainSteps selectCountGroupForDirection() {
         for (int i = 1; i < conutGroupFilterList.size(); i++) {
             profilesAggRatings.shouldBe(visible, Duration.ofSeconds(15));
-            profilesAggRatings.shouldBe(visible, Duration.ofSeconds(15));
             for (SelenideElement element : trafficValues) {
                 String text = element.getText();
                 if (text.equals("0")) {
@@ -158,9 +157,9 @@ public class MainSteps {
 
     @Step("Геренация рандомных id профилей для проверки поиска")
     public MainSteps generationIdProfile() {
-        int counter = faker.random().nextInt(4, 6);
+        int counter = faker.random().nextInt(2, 4);
         for (int i = 0; i <= counter; i++) {
-            Integer numberID = faker.random().nextInt(1, 10000);
+            Integer numberID = faker.random().nextInt(1, 156830070);
             textArea.append(numberID + "\n");
         }
         return this;
