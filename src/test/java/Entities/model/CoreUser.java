@@ -1,9 +1,7 @@
 package Entities.model;
 
 import config.ConfigHelper;
-import lombok.Data;
 
-@Data
 public class CoreUser {
 
     private String grant_type = "\"password\"";

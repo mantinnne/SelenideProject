@@ -11,6 +11,12 @@ public interface ApiConfig extends Config {
     @Key("host_core")
     String getUrlCore();
 
+    @Key("username")
+    String getUsername();
+
+    @Key("password")
+    String gerPassword();
+
 
 }
 

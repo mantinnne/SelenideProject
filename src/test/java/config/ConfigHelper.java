@@ -20,6 +20,11 @@ public class ConfigHelper {
     public static String COSIAL_PLACE_ENDPOINT_SEARCH = "auth";
     public static String COSIAL_PLACE_PATH_CORE = "graphql";
 
+    // login/password
+
+    public static String LOGIN = config.getUsername();
+    public static String PASSWORD = config.gerPassword();
+
 
     public static String getBaseURL() {
         return ConfigHelper.SOCIAL_PLACE_SERVER;
