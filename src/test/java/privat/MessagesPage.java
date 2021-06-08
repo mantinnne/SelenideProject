@@ -55,8 +55,8 @@ public class MessagesPage extends BasePrivat {
     void selectMessagesForDirection() {
         steps.openMesseage(nameSection);
         steps.checkMesseageLoading();
-        steps.checkDischargeOption(63, 64, 1);
-        steps.selectForMesseage(63, 64, 1);
+        steps.checkDischargeOption(67, 68, 1);
+        steps.selectForMesseage(67, 68, 1);
     }
 
     @RepeatedIfExceptionsTest(repeats = 3)

@@ -112,9 +112,9 @@ public class GroupPage extends BasePrivat {
     void searchGroupFilterName() {
         steps.selectGroup();
         steps.loadingMoreFilterGroup();
-        steps.inputNameGroupFilter("BlackRose-DeadRose");
+        steps.inputNameGroupFilter("Selo Company");
         steps.applyRelult();
-        steps.checkVievGroup("BlackRose-DeadRose");
+        steps.checkVievGroup("Selo Company");
     }
 
     @RepeatedIfExceptionsTest(repeats = 3)
