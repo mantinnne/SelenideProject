@@ -33,7 +33,7 @@ public abstract class BasePrivat {
         Configuration.browser = config.getWebBrowser();
         Configuration.browserVersion = config.getVersionBrowser();
         Configuration.startMaximized = true;
-        Configuration.timeout = 30000;
+        Configuration.timeout = 90000;
 
         if (config.getRemoteUrl() != null) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
