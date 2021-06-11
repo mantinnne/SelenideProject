@@ -66,7 +66,7 @@ public class ProfileSteps {
     @Step("Выбор личной страницы профиля: {0}")
     public ProfileSteps selectProfilePage(String name) {
         linkProfile.shouldBe(CollectionCondition.allMatch("Кликабельны все элементы коллекции для перехода в личную страницу", WebElement::isEnabled))
-                .shouldHaveSize(10).filter(text(name)).first().click();
+                .shouldHaveSize(20).filter(text(name)).first().click();
         return this;
     }
 
