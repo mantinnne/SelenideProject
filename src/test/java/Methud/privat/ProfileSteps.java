@@ -148,7 +148,7 @@ public class ProfileSteps {
 
     @Step("Запрос на создание  отчетов по профилю")
     public ProfileSteps downloadReportProfile() {
-        buttonCreateReport.shouldHaveSize(6);
+        buttonCreateReport.shouldHaveSize(7);
         for (SelenideElement element : buttonCreateReport) {
             element.as("Скачивание репорта по профилю: " + element.getText()).click();
             step("Ожидание появляения окна отчета и его скрытие", () -> {
@@ -362,7 +362,7 @@ public class ProfileSteps {
     public ProfileSteps selectProfile(String id) {
         idFilter.val(id);
         button.click();
-        linkProfile.shouldHaveSize(1).first().click();
+        linkProfile.shouldHaveSize(2).first().click();
         return this;
     }
 
