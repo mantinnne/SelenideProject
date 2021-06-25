@@ -11,7 +11,7 @@ java  \
 "-Dconfig.file=${PATH_TO_FILE}" \
 "-Denv=${ENVIRONMENT}" \
 "-DreportLink=${BUILD_URL}" \
--jar allure-notifications-3.0.1.jar
+-jar allure-notifications.jar
 
 ### Here you can find config file structure for lib configuration.
 
